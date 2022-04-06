@@ -25,5 +25,16 @@ def maketable(filename,primary_key = "FullName",additional = ")"):
     s+=additional
     ci.execute(s)
     print(f"table {filename} successfully created")
+def loadData(filename):
+    csvr = csv.reader(open(filename+".csv"))
+    next(csvr)
+    s = f"insert into {filename} values"
+    for i in csvr:
+        print(str(tuple(i))+",")
+        s+=str(tuple(i))+","
+        break
+    s = s[:-1]
+    print(s)
+    ci.execute(s)
 maketable("players_fifa22")
-
+loadData("players_fifa22")
