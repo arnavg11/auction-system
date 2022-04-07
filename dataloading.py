@@ -1,5 +1,6 @@
 import csv
 import mysql.connector as sql
+from time import time as t
 do_temp = sql.connect(host = "localhost", user = "root",password = "4rn4vGU!")
 ci_temp = do_temp.cursor()
 ci_temp.execute("create database if not exists fifadata")
@@ -28,13 +29,27 @@ def maketable(filename,primary_key = "FullName",additional = ")"):
 def loadData(filename):
     csvr = csv.reader(open(filename+".csv"))
     next(csvr)
-    s = f"insert into {filename} values"
     for i in csvr:
-        print(str(tuple(i))+",")
-        s+=str(tuple(i))+","
-        break
-    s = s[:-1]
-    print(s)
-    ci.execute(s)
+        s = f"insert into {filename} values("
+        prev = t()
+        for j in i:
+            if j.isdigit():
+                if j == "":
+                    s+="0"
+                else:
+                    s+=f"{int(j)}"
+            elif j.lower() in ["true","false"]:
+                s+=f"{bool(j)}"
+            else:
+                s+=f'"{j}"'
+            s+=","
+        s = s[:-1]
+        s+=")"
+        if t()-prev>=1:
+            print("end")
+            break
+        print(s)
+        print()
+        ci.execute(s)
 maketable("players_fifa22")
 loadData("players_fifa22")
