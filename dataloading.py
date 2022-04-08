@@ -1,5 +1,6 @@
 import csv
 import mysql.connector as sql
+import threading as thr
 from time import time as t
 do_temp = sql.connect(host = "localhost", user = "root",password = "4rn4vGU!")
 ci_temp = do_temp.cursor()
@@ -31,7 +32,6 @@ def loadData(filename):
     next(csvr)
     for i in csvr:
         s = f"insert into {filename} values("
-        prev = t()
         for j in i:
             if j.isdigit():
                 if j == "":
@@ -45,11 +45,18 @@ def loadData(filename):
             s+=","
         s = s[:-1]
         s+=")"
-        if t()-prev>=1:
-            print("end")
-            break
+        def f():
+            while (not th.is_alive()) or t()-prev>100000:
+                print(t()-prev)
+        th2 = thr.Thread(target = f, name = "th2")
+        th = thr.Thread(target = lambda : ci.execute(s),name = "th")
+        th.start()
+        th2.start()
+        prev = t()
+        th.join()
+        th2.join()
         print(s)
         print()
-        ci.execute(s)
+        return
 maketable("players_fifa22")
 loadData("players_fifa22")
