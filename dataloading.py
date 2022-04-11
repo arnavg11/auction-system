@@ -52,9 +52,15 @@ def loadData(filename):
         try:
             ci.execute(s)
         except sql.Error as e:
-            print(str(e))
+            print(e)
+            return
         do.commit()
+    print(f"data loaded into {filename}")
+p = t()
 maketable("players_fifa22")
-print(t())
 loadData("players_fifa22")
-print(t())
+maketable("players_22")
+loadData("players_22")
+maketable("teams_fifa22")
+loadData("teams_fifa22")
+print(t()-p)
