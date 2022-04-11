@@ -41,7 +41,7 @@ def loadData(filename):
                 if i[j] == "":
                     s+="0"
                 else:
-                    s+=f"{int(i[j])}"
+                    s+=f"{eval(i[j])}"
             elif datatypes[j] ==b'tinyint(1)':
                 s+=f"{bool(i[j])}"
             else:
@@ -52,8 +52,7 @@ def loadData(filename):
         try:
             ci.execute(s)
         except sql.Error as e:
-            print(e)
-            return
+            pass
         do.commit()
     print(f"data loaded into {filename}")
 p = t()
