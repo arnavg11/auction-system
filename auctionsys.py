@@ -1,7 +1,7 @@
 import mysql.connector as sql
 import random as rand
 passw = "deens"
-auctioned = ["Lionel Messi"]
+auctioned = []
 def pickAuctionPlayer(filename = "players_fifa22", primary_key = "fullname",ovr = "overall",size = 40):
     do = sql.connect(host = "localhost", user = "root", password = passw, database = "fifadata")
     ci = do.cursor()
@@ -9,7 +9,7 @@ def pickAuctionPlayer(filename = "players_fifa22", primary_key = "fullname",ovr 
     datatypes = []
     for i in ci:
         datatypes.append(i[0].lower())
-    
+
     if len(auctioned)==0:
         execstr = f"select*from {filename} order by overall desc limit {size}"
     else:
@@ -27,7 +27,9 @@ def pickAuctionPlayer(filename = "players_fifa22", primary_key = "fullname",ovr 
         if pick-ovrList[i]>=0:
             pick-=ovrList[i]
         else:
+            auctioned.append(p[i])
             return p[i]
+    auctioned.append(p[-1])
     return p[-1]
-        
+
 print(pickAuctionPlayer())
