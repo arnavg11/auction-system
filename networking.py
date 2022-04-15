@@ -1,11 +1,12 @@
 import socket as sck
 class Server:
-    def __init__(self,ip):
-        self.socket = sck.socket()
-        self.socket.bind(ip,6000)
-        self.socket.listen()
-        self.socket.accept()
+    def __init__(self):
+        self.socket = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
+        self.socket.bind((sck.gethostbyname(sck.gethostname()),6000))
     def read(self):
-        return self.socket.read()
-    def write(self):
-        self.socket.w
+        return self.socket.recvfrom(4096)
+    def write(self,msg,ip):
+        self.socket.sendto(msg.encode(), ip)
+c = Server()
+print(sck.gethostbyname(sck.gethostname()))
+while True : print(c.read())
