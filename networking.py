@@ -5,8 +5,8 @@ class Server:
         self.socket.bind((sck.gethostbyname(sck.gethostname()),6000))
     def read(self):
         return self.socket.recvfrom(4096)
-    def write(self,msg,ip):
-        self.socket.sendto(msg.encode(), ip)
+    def write(self,msg):
+        self.socket.sendto(msg.encode(),6000)
 c = Server()
 print(sck.gethostbyname(sck.gethostname()))
 while True : print(c.read())
