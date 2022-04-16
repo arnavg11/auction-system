@@ -2,6 +2,14 @@ import socket as sck
 import threading as thr
 def convertih(ipv4 = sck.gethostbyname(sck.gethostname())):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
+def converthi(ip4_e):
+    ip = ""
+    for i in range(4):
+        if ip4_e[i*2]=="x":
+            ip+=hex(int("0"+ip4_e[i*2+1],16))
+        else:
+            ip+=hex(int(ip4_e[i*2:i*2+2],16))
+    return ip
 class Comp:
     def __init__(self):
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
