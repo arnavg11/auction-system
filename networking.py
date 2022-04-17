@@ -31,7 +31,7 @@ def process(msg):
     msgspl = msg.split()
     if msgspl[0]=="JOIN:":
         x.setip(converthi(msgspl[1]))
-        x.write(f"JOIN_RES: {convert()}")
+        x.write(f"JOIN_RES: {convertih()}")
         print("join received")
     elif msgspl[0]=="JOIN_RES:":
         x.setip(converthi(msgspl[1]))
