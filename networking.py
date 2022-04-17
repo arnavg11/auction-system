@@ -41,7 +41,7 @@ ipReceived = True
 print(convertih())
 x = Comp()
 t1 = thr.Thread(target =temp )
-t2 = thr.Thread(target = c.lambda:x.setip(input("enter ip:\t")),True)
+t2 = thr.Thread(target = lambda:x.setip(input("enter ip:\t")),True)
 t1.start()
 t2.join()
 t1.join()
