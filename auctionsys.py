@@ -31,7 +31,7 @@ def pickAuctionPlayer(filename = "players_fifa22", primary_key = "fullname",ovr 
             return dict(zip(datatypes, p[i]))
     auctioned.append(p[-1])
     return dict(zip(datatypes, p[-1]))
-def team_init():
+def team_init(filename = "players_fifa22"):
     pl = []
     op = []
     do = sql.connect(host = "localhost", user = "root", password = passw, database = "fifadata")
@@ -45,15 +45,18 @@ def team_init():
     for i in range(4):
         s = "select * from players_fifa22 where"
         for p in pos[i]:
-            s+=f" bestposition = {p} or"
-        s = s[:-2]+"order by rand() limit {fromn[i]}"
+            s+=f" bestposition = '{p}' or"
+        s = s[:-2]+f"order by rand() limit {formn[i]}"
         ci.execute(s)
         t=[]
         for p in ci:
             t.append(dict(zip(datatypes, p)))
         pl.append(t)
-    for i in ci.execute("select * from players_fifa22 order by rand() limit 11"):
-        op.append(i)
+    for j in pl:
+        for i in j:
+            print(i["fullname"],i["overall"],end = "\t")
+        print()
     
 
-    return pl,op
+    return pl
+team_init()
