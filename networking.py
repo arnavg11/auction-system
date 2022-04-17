@@ -21,10 +21,25 @@ class Comp:
     def setip(self,ip):
         self.ip = ip
 def temp():
-    while True:print(x.read())
+    while True:process(x.read())
+def process(msg):
+    try:
+        t2.terminate()
+    except:pass
+    msgspl = msg.split()
+    if msgspl[0]=="JOIN:":
+        x.setip(converthi(msgspl[1]))
+        x.write(f"JOIN_RES: {convert()}")
+        print("join received")
+    elif msgspl[0]=="JOIN_RES:":
+        x.setip(converthi(msgspl[1]))
+        print("join_RES received")
+    
+ipReceived = True
 print(convertih())
 x = Comp()
 t1 = thr.Thread(target =temp )
+t2 = thr.Thread(target = lambda:input("enter ip:\t") )
 t1.start()
-print("main")
 t1.join()
+t2.join()
