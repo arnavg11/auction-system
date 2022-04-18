@@ -6,21 +6,25 @@ def converthi(ip4_e):
     ip = ""
     for i in range(4):
         if ip4_e[i*2]=="x":
-            ip+=hex(int("0"+ip4_e[i*2+1],16))
+            ip+=str(int("0"+ip4_e[i*2+1],16))[:-2]
         else:
-            ip+=hex(int(ip4_e[i*2:i*2+2],16))
+            ip+=str(int(ip4_e[i*2:i*2+2],16))
+        ip+="."
+    ip=ip[:-1]
     return ip
 class Comp:
     def __init__(self):
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
         self.socket.bind((sck.gethostbyname(sck.gethostname()),6000))
+        self.ip = None
     def read(self):
         return self.socket.recvfrom(4096)
     def write(self,msg):
+        print(self.ip, type(msg.encode()))
         self.socket.sendto(msg.encode(),(self.ip,6000))
     def setip(self,ip,firstms = False):
-        if firstms:self.write(f"JOIN: {convertih()}")
         self.ip = ip
+        if firstms:self.write(f"JOIN: {convertih()}")
 def temp():
     while True:process(x.read())
 def process(msg):
@@ -41,7 +45,7 @@ ipReceived = True
 print(convertih())
 x = Comp()
 t1 = thr.Thread(target =temp )
-t2 = thr.Thread(target = lambda:x.setip(input("enter ip:\t"),True))
+t2 = thr.Thread(target = lambda:x.setip(converthi(input("enter ip:\t")),True))
 t1.start()
 t2.start()
 t2.join()
