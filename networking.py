@@ -1,6 +1,6 @@
 import socket as sck
 import threading as thr
-def convertih(ipv4 = sck.gethostbyname('localhost')):
+def convertih(ipv4 = sck.gethostbyname(sck.gethostname())):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
 def converthi(ip4_e):
     ip = ""
@@ -13,7 +13,7 @@ def converthi(ip4_e):
 class Comp:
     def __init__(self):
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
-        self.socket.bind((sck.gethostbyname('localhost'),6000))
+        self.socket.bind((sck.gethostbyname(sck.gethostname()),6000))
     def read(self):
         return self.socket.recvfrom(4096)
     def write(self,msg):
