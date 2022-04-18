@@ -19,7 +19,7 @@ class Comp:
     def write(self,msg):
         self.socket.sendto(msg.encode(),(self.ip,6000))
     def setip(self,ip,firstms = False):
-        if firstms:self.send(f"JOIN: {convertih()}")
+        if firstms:self.write(f"JOIN: {convertih()}")
         self.ip = ip
 def temp():
     while True:process(x.read())
