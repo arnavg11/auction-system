@@ -5,9 +5,9 @@ temp = sck.socket(sck.AF_INET,sck.SOCK_DGRAM)
 temp.connect(("8.8.8.8",9000))
 myip = temp.getsockname()[0]'''
 import tkinter as tk
-myip = sck.socket(sck.AF_INET,sck.SOCK_DGRAM).getsockname()[0]
-print(myip)
-
+myip = "localhost"
+def read(x):
+        while True:print(x.recv(4096))
 def convertih(ipv4 = myip):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
 def converthi(ip4_e):
@@ -25,19 +25,14 @@ class Server:
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.socket.bind((myip,6000))
         self.conn = []
+
         self.startListen()
     def startListen(self):
         self.socket.listen(5)
         while True:
             self.conn.append(self.socket.accept())
-            print(self.conn[-1])
-    def read(self):
-        while True:print(self.socket.recv(4096))
+            thr.Thread(target = lambda:read(self.conn[-1][0])).start()
     def write(self,msg):
         print(self.ip, type(msg.encode()))
         self.socket.send(msg.encode())
 x = Server()
-t1 = thr.Thread(target = x.startListen)
-t2 = thr.Thread(target = x.read)
-t1.start()
-t1.start()
