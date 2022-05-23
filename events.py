@@ -20,19 +20,25 @@ def converthi(ip4_e):
         ip+="."
     ip=ip[:-1]
     return ip
+t = None
 class Server:
     def __init__(self):
+        global t
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.socket.bind((myip,6000))
         self.conn = []
 
-        self.startListen()
+        t = thr.Thread(target = self.startListen)
+        t.start()
     def startListen(self):
         self.socket.listen(5)
         while True:
             self.conn.append(self.socket.accept())
+            print(1)
             thr.Thread(target = lambda:read(self.conn[-1][0])).start()
     def write(self,msg):
         print(self.ip, type(msg.encode()))
         self.socket.send(msg.encode())
 x = Server()
+print(1)
+t.join()
