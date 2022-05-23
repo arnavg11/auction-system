@@ -26,7 +26,8 @@ class Client:
     def read(self):
         while True: print(self.socket.recv(4096))
     def write(self,msg):
-        self.socket.send(msg.encode(),self.ip)
+        print(msg.encode())
+        self.socket.send(msg.encode())
     def setip(self,ip):
         self.ip = ip
         try:
