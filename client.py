@@ -26,7 +26,7 @@ class Client:
     def read(self):
         while True: print(self.socket.recv(4096))
     def write(self,msg):
-        self.socket.send(msg.encode())
+        self.socket.send(msg.encode(),self.ip)
     def setip(self,ip):
         self.ip = ip
         try:
@@ -34,6 +34,6 @@ class Client:
             return True
         except: return False
 x = Client()
-x.setip('0.0.0.0')
+x.setip('localhost')
 x.write("lol")
 #t1 = thr.Thread(target = x.)
