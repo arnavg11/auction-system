@@ -52,5 +52,5 @@ class Client:
 
 x = Client()
 x.setip("localhost")
-x.write("lol")
-# t1 = thr.Thread(target = x.)
+x.write("init")
+thr.Thread(target = x.read()).start()
