@@ -13,9 +13,13 @@ myip = "localhost"
 
 def read(x):
     while True:
-        msg = pickle.load(x.recv(4096))
+        msg = str(x.recv(4096))
         print(msg)
-        if msg == "init":
+        if msg[0:4] == "name" and "-"in msg:
+            for i in range(len(serv.connBuffer)):
+                if serv.connBuffer[i][0]==x:
+                    serv.conn[msg.split("-")[1]] = serv.connBuffer.pop(i)
+                    print(420)
             serv.write("init_ack",x)
         else:
             msg = msg.split(":")
@@ -50,7 +54,8 @@ class Server:
         global t
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.socket.bind((myip, 6789))
-        self.conn = []
+        self.connBuffer = []
+        self.conn = {}
 
         t = thr.Thread(target=self.startListen)
         t.start()
@@ -58,17 +63,14 @@ class Server:
     def startListen(self):
         self.socket.listen(5)
         while True:
-            self.conn.append(self.socket.accept())
-            print(self.conn[-1])
-            t = thr.Thread(target=lambda: read(self.conn[-1][0]))
+            self.connBuffer.append(self.socket.accept())
+            print(self.connBuffer[-1])
+            t = thr.Thread(target=lambda: read(self.connBuffer[-1][0]))
             t.start()
 
     def write(self, msg,c):
-        print(self.ip, type(msg.encode()))
+        print(type(msg.encode()))
         c.send(msg.encode())
-    def writeb(self, data,c):
-        print(self.ip, data)
-        c.send(data)
     def findClient(self,ip):
         for i in self.conn:
             if i[1][0] == ip:
