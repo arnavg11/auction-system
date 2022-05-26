@@ -1,5 +1,6 @@
 import socket as sck
 import threading as thr
+import pickle
 
 """
 temp = sck.socket(sck.AF_INET,sck.SOCK_DGRAM)
@@ -27,10 +28,10 @@ def converthi(ip4_e):
 
 
 class Client:
-    def __init__(self):
+    def __init__(self, username):
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.ip = None
-
+        self.user = username
     def read(self):
         while True:
             print(self.socket.recv(4096))
@@ -42,7 +43,10 @@ class Client:
     def setip(self, ip):
         self.ip = ip
         try:
+            print(self.user)
             self.socket.connect((ip, 6789))
+            s = f"{serv}"
+            self.write(f"{1+1}")
             t = thr.Thread(target=self.read)
             t.start()
             return True
@@ -50,7 +54,6 @@ class Client:
             return False
 
 
-x = Client()
+x = Client("rockstar")
 x.setip("localhost")
-x.write("init")
 thr.Thread(target = x.read()).start()
