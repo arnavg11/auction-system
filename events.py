@@ -12,10 +12,19 @@ myip = "localhost"
 
 
 def read(x):
-    x.send(pickle.dumps("Hello"))
     while True:
-        print(x.recv(4096))
-
+        msg = pickle.load(x.recv(4096))
+        print(msg)
+        if msg == "init":
+            serv.write("init_ack",x)
+        else:
+            msg = msg.split(":")
+            recver = serv.findClient(msg[0])
+            if recver!=None:
+                serv.write(msg[1],recver)
+            else:
+                serv.write("client not found", x)
+        
 
 def convertih(ipv4=myip):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
@@ -50,15 +59,21 @@ class Server:
         self.socket.listen(5)
         while True:
             self.conn.append(self.socket.accept())
-            print(1)
+            print(self.conn[-1])
             t = thr.Thread(target=lambda: read(self.conn[-1][0]))
             t.start()
 
-    def write(self, msg):
+    def write(self, msg,c):
         print(self.ip, type(msg.encode()))
-        self.socket.send(msg.encode())
+        c.send(msg.encode())
+    def writeb(self, data,c):
+        print(self.ip, data)
+        c.send(data)
+    def findClient(self,ip):
+        for i in self.conn:
+            if i[1][0] == ip:
+                return i
 
-
-x = Server()
+serv = Server()
 print(1)
 t.join()
