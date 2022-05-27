@@ -45,8 +45,7 @@ class Client:
         try:
             print(self.user)
             self.socket.connect((ip, 6789))
-            s = f"{serv}"
-            self.write(f"{1+1}")
+            self.write(f"name-{self.user}")
             t = thr.Thread(target=self.read)
             t.start()
             return True
