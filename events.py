@@ -12,8 +12,9 @@ myip = "localhost"
 
 
 def read(x):
+ try:
     while True:
-        msg = str(x.recv(4096))
+        msg = x.recv(4096).decode()
         print(msg)
         if msg[0:4] == "name" and "-"in msg:
             for i in range(len(serv.connBuffer)):
@@ -23,12 +24,19 @@ def read(x):
             serv.write("init_ack",x)
         else:
             msg = msg.split(":")
-            recver = serv.findClient(msg[0])
-            if recver!=None:
+            try:
+                recver = serv.conn[msg[0]]
                 serv.write(msg[1],recver)
-            else:
+            except KeyError:
                 serv.write("client not found", x)
-        
+ except ConnectionResetError:
+     connLeft(x)
+def connLeft(x):
+     for user,conn in serv.conn.items():
+         if conn[0]==x:
+             del serv.conn[user]
+             print("client has left: ",user)
+             for user,
 
 def convertih(ipv4=myip):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
@@ -71,10 +79,6 @@ class Server:
     def write(self, msg,c):
         print(type(msg.encode()))
         c.send(msg.encode())
-    def findClient(self,ip):
-        for i in self.conn:
-            if i[1][0] == ip:
-                return i
 
 serv = Server()
 print(1)
