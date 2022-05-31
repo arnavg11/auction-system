@@ -36,7 +36,9 @@ def connLeft(x):
          if conn[0]==x:
              del serv.conn[user]
              print("client has left: ",user)
-             for user,
+             for user,client in serv.conn.items():
+                 serv.write("left:"+user,client)
+             break
 
 def convertih(ipv4=myip):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
