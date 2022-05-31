@@ -55,4 +55,4 @@ class Client:
 
 x = Client("rockstar")
 x.setip("localhost")
-thr.Thread(target = x.read()).start()
+thr.Thread(target = x.read).start()
