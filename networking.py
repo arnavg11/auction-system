@@ -1,59 +1,107 @@
 import socket as sck
 import threading as thr
+import pickle
+
+"""
 temp = sck.socket(sck.AF_INET,sck.SOCK_DGRAM)
 temp.connect(("8.8.8.8",9000))
-myip = temp.getsockname()[0]
+myip = temp.getsockname()[0]"""
+import tkinter as tk
+
+myip = "localhost"
 
 
+def read(x):
+ try:
+    while True:
+        msg = x.recv(4096).decode()
+        print(msg)
+        if msg[0:4] == "name" and "-"in msg:
+            for i in range(len(serv.connBuffer)):
+                if serv.connBuffer[i][0]==x:
+                    serv.conn[msg.split("-")[1]] = serv.connBuffer.pop(i)
+                    print(420)
+            serv.write("init_ack",x)
+        else:
+            msg = msg.split(":")
+            try:
+                recver = serv.conn[msg[0]]
+                serv.write(msg[1],recver)
+            except KeyError:
+                serv.write("client not found", x)
+ except ConnectionResetError:
+     connLeft(x)
+def connLeft(x):
+     for user,conn in serv.conn.items():
+         if conn[0]==x:
+             del serv.conn[user]
+             print("client has left: ",user)
+             for user,client in serv.conn.items():
+                 serv.write("left:"+user,client)
+             break
 
-def convertih(ipv4 = myip):
+def convertih(ipv4=myip):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
+
+
 def converthi(ip4_e):
     ip = ""
     for i in range(4):
-        if ip4_e[i*2]=="x":
-            ip+=str(int(ip4_e[i*2+1],16))
+        if ip4_e[i * 2] == "x":
+            ip += str(int("0" + ip4_e[i * 2 + 1], 16))[:-2]
         else:
-            ip+=str(int(ip4_e[i*2:i*2+2],16))
-        ip+="."
-    ip=ip[:-1]
+            ip += str(int(ip4_e[i * 2 : i * 2 + 2], 16))
+        ip += "."
+    ip = ip[:-1]
     return ip
-class Comp:
+
+
+t = None
+
+
+class Server:
     def __init__(self):
-        self.socket = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
-        self.socket.bind((myip,6000))
+        global t
+        self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
+        self.socket.bind((myip, 6789))
+        self.connBuffer = []
+        self.conn = {}
+
+        t = thr.Thread(target=self.startListen)
+        t.start()
+
+    def startListen(self):
+        self.socket.listen(5)
+        while True:
+            self.connBuffer.append(self.socket.accept())
+            print(self.connBuffer[-1])
+            t = thr.Thread(target=lambda: read(self.connBuffer[-1][0]))
+            t.start()
+
+    def write(self, msg,c):
+        print(type(msg.encode()))
+        c.send(msg.encode())
+class Client:
+    def __init__(self, username):
+        self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.ip = None
+        self.user = username
     def read(self):
-        return self.socket.recvfrom(4096)
-    def write(self,msg):
-        print(self.ip, type(msg.encode()))
-        self.socket.sendto(msg.encode(),(self.ip,6000))
-        print(1)
-    def setip(self,ip,firstms = False):
+        while True:
+            print(self.socket.recv(4096))
+
+    def write(self, msg):
+        print(msg.encode())
+        self.socket.send(msg.encode())
+
+    def setip(self, ip):
         self.ip = ip
-        if firstms:self.write(f"JOIN: {convertih()}")
-def temp():
-    while True:process(x.read())
-def process(msg):
-    print(1)
-    try:
-        t2.terminate()
-    except:pass
-    msgspl = msg.split()
-    if msgspl[0]=="JOIN:":
-        x.setip(converthi(msgspl[1]))
-        x.write(f"JOIN_RES: {convertih()}")
-        print("join received")
-    elif msgspl[0]=="JOIN_RES:":
-        x.setip(converthi(msgspl[1]))
-        print("join_RES received")
-    
-ipReceived = True
-print(convertih())
-x = Comp()
-t1 = thr.Thread(target =temp )
-t2 = thr.Thread(target = lambda:x.setip(converthi(input("enter ip:\t")),True))
-t1.start()
-t2.start()
-t2.join()
-t1.join()
+        try:
+            print(self.user)
+            self.socket.connect((ip, 6789))
+            self.write(f"name-{self.user}")
+            t = thr.Thread(target=self.read)
+            t.start()
+            return True
+        except:
+            return False
