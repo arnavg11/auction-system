@@ -2,10 +2,10 @@ import socket as sck
 import threading as thr
 import pickle
 
-"""
-temp = sck.socket(sck.AF_INET,sck.SOCK_DGRAM)
-temp.connect(("8.8.8.8",9000))
-myip = temp.getsockname()[0]"""
+def getIP():
+    temp = sck.socket(sck.AF_INET,sck.SOCK_DGRAM)
+    temp.connect(("8.8.8.8",9000))
+    return temp.getsockname()[0]
 import tkinter as tk
 
 myip = "localhost"
@@ -40,7 +40,7 @@ def connLeft(x):
                  serv.write("left:"+user,client)
              break
 
-def convertih(ipv4=myip):
+def convertih(ipv4=getIP()):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
 
 
@@ -82,7 +82,7 @@ class Server:
         print(type(msg.encode()))
         c.send(msg.encode())
 class Client:
-    def __init__(self, username):
+    def __init__(self, username = None):
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.ip = None
         self.user = username
