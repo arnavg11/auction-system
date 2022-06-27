@@ -164,7 +164,11 @@ class connectServer:
         self.ele.append(self.enterbox)
     def connServer(self,key):
         print(self.enterbox.get())
-        print(comp.setip(self.enterbox.get()))
+        if comp.setip(self.enterbox.get()):
+            destruct(self.ele)
+            game()
+        else:
+            self.l1 = Label(self.root,text = "The server you entered may not be running",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
 class game:
     def __init__(self,master):
      self.master=master
