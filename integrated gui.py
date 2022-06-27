@@ -138,7 +138,7 @@ class server_screen:
         self.r.geometry("700x400")
         self.r.configure(bg = "black")
         self.ele = []
-        self.label = Label(self.r,text = f"Your ip address is : {convertih()}",font = ("Calibri",20),bg = "black",fg ="white")
+        self.label = Label(self.r,text = f"Your ip address is : {convertih(myip)}",font = ("Calibri",20),bg = "black",fg ="white")
         self.label.pack()
         self.ele.append(self.label)
         self.b =Button(self.r,text="close this server",command = self.close,bg = "black",fg =
@@ -158,7 +158,13 @@ class connectServer:
         self.l = Label(self.root,text = "Enter the server ip you want to join and press enter",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         self.ele = [self.l]
         self.l.pack()
-        self.e = Entry(self.root,)
+        self.enterbox = Entry(self.root,width = 60,background = "white")
+        self.enterbox.pack()
+        self.enterbox.bind("<Return>",self.connServer)
+        self.ele.append(self.enterbox)
+    def connServer(self,key):
+        print(self.enterbox.get())
+        print(comp.setip(self.enterbox.get()))
 class game:
     def __init__(self,master):
      self.master=master
