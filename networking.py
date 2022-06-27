@@ -8,7 +8,7 @@ def getIP():
     return temp.getsockname()[0]
 import tkinter as tk
 
-myip = "localhost"
+myip = getIP()
 
 
 def read(x):
