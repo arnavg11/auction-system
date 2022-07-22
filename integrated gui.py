@@ -164,16 +164,17 @@ class connectServer:
         self.ele.append(self.enterbox)
     def connServer(self,key):
         print(self.enterbox.get())
-        if comp.setip(self.enterbox.get()):
+        x = comp.setip(self.enterbox.get())
+        if x:
             destruct(self.ele)
-            game()
+            game(root)
         else:
             self.l1 = Label(self.root,text = "The server you entered may not be running",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
 class game:
     def __init__(self,master):
      self.master=master
      self.master.geometry("700x400")
-    
+     
      self.button1 = Button(self.master,text="GAME",padx=130,pady=50,borderwidth=0)
      self.button2 = Button(self.master,text="AUCTION",padx=110,pady=50,borderwidth=0)
      self.button3 = Button(self.master,text="CARDS",padx=127,pady=50,borderwidth=0)
