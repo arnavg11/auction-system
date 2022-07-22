@@ -95,10 +95,10 @@ class Client:
         self.socket.send(msg.encode())
 
     def setip(self, ip):
-        self.ip = ip
+        self.ip = converthi(ip)
         try:
             print(self.user)
-            self.socket.connect((ip, 6789))
+            self.socket.connect((self.ip, 6789))
             self.write(f"name-{self.user}")
             t = thr.Thread(target=self.read)
             t.start()
