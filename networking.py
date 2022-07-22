@@ -75,7 +75,7 @@ class Server:
         while True:
             self.connBuffer.append(self.socket.accept())
             print(self.connBuffer[-1])
-            t = thr.Thread(target=lambda: read(self.connBuffer[-1][0]))
+            t = thr.Thread(target=lambda: read(self.connBuffer[-1][0])
             t.start()
 
     def write(self, msg,c):
