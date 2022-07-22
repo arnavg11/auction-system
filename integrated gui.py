@@ -170,6 +170,14 @@ class connectServer:
             game(root)
         else:
             self.l1 = Label(self.root,text = "The server you entered may not be running",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
+class join():
+    def __init__(self):
+        self.root = root
+        self.root.configure(bg = "black")
+        self.root.geometry("700x400")
+        l = 
+        for i in range(len(l)):
+           Button(self.root,padx = 200,pady = 3,text=l[i],borderwidth=0).place(relx=0.5,rely=i*0.1+0.05,anchor='center')
 class game:
     def __init__(self,master):
      self.master=master
@@ -194,4 +202,4 @@ class game:
     def close_window(self):
      self.master.destroy()
     
-serverOrClient()
+join()
