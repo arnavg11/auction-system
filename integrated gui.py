@@ -1,7 +1,8 @@
 from tkinter import *
 import time
-import mysql.connector as mysql
+#import mysql.connector as mysql
 from networking import *
+import threading as thr
 bg= "black"
 fg = "white"
 def destruct(ele):
@@ -49,7 +50,7 @@ class serverOrClient:
     def next_window(self,isClient):
         destruct(self.ele)
         if isClient:enterUser()
-        else:mysql_password(root)
+        else:server_screen(root)
 
 #comp = None
 class enterUser:
@@ -59,7 +60,7 @@ class enterUser:
         
         self.root = root
         self.root.resizable(False,False)
-        self.root.geometry(f"500x150+5+5")
+        self.root.geometry(f"600x150+5+5")
         self.root.configure(bg= bg)
         self.root.title("a")
         
@@ -71,9 +72,7 @@ class enterUser:
         self.enterbox.place(height = 30,x = 10,y = 50)
         self.enterbox.bind("<Key>",self.checkName)
         self.ele.append(self.enterbox)
-        
-        self.ele.append(Button(self.root,text = "submit",command= self.subm, padx = 10,pady = 10,background = bg,foreground = fg))
-        self.ele[-1].place(x=420,y=40)
+
         
         self.l =  Label(self.root,text = "",font = "Helvetica",padx = 10,pady = 10,foreground = fg,background = bg)
         self.l.place(x = 10, y=  100)
@@ -135,7 +134,7 @@ class mysql_password:
 class server_screen:
     def __init__(self,root=root):
         self.r = root
-        self.r.geometry("700x400")
+        self.r.geometry("400x300")
         self.r.configure(bg = "black")
         self.ele = []
         self.label = Label(self.r,text = f"Your ip address is : {convertih(myip)}",font = ("Calibri",20),bg = "black",fg ="white")
@@ -166,18 +165,50 @@ class connectServer:
         print(self.enterbox.get())
         x = comp.setip(self.enterbox.get())
         if x:
+            pass
             destruct(self.ele)
-            game(root)
+            join(root)
         else:
             self.l1 = Label(self.root,text = "The server you entered may not be running",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
 class join():
-    def __init__(self):
+    def __init__(self,root):
         self.root = root
         self.root.configure(bg = "black")
         self.root.geometry("700x400")
-        l = 
-        for i in range(len(l)):
-           Button(self.root,padx = 200,pady = 3,text=l[i],borderwidth=0).place(relx=0.5,rely=i*0.1+0.05,anchor='center')
+        self.ele = []
+        self.l = None
+        t = thr.Thread(target=self.updateList)
+        t.start()
+        t2 = thr.Thread(target=self.transition)
+        t2.start()
+        self.l = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
+        self.l.pack()
+    def updateList(self):
+        while True:
+            if self.l !=comp.servconn:
+                destruct(self.ele)
+                print(2)
+                self.l = comp.servconn
+                n = 0
+                for i in range(len(self.l)):
+                    if self.l[i]!= comp.user:
+                        n+=1
+                        self.ele.append(Button(self.root,padx = 200,pady = 3,text=self.l[i],borderwidth=0,command =
+                                               lambda: self.joinconn(self.l[i])).place(relx=0.5,rely=i*0.1+0.05,anchor='center'))
+    def joinconn(self,user2):
+        print("J")
+        comp.write(f"::cnct-{comp.user}:{user2}")
+    def transition(self):
+        while True:
+            if comp.paired:
+                destruct(self.ele+[self.l])
+class distributeMoney:
+    def __init__(self,root):
+        self.master=master
+        self.master.geometry("700x400")
+        self.ele = []
+        self.ele.append(self.l = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
+)
 class game:
     def __init__(self,master):
      self.master=master
@@ -202,4 +233,4 @@ class game:
     def close_window(self):
      self.master.destroy()
     
-join()
+distributeMoney()
