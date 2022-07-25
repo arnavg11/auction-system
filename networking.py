@@ -11,34 +11,45 @@ import tkinter as tk
 myip = getIP()
 
 
-def read(x):
+def read(x,comp):
  try:
     while True:
-        msg = x.recv(4096).decode()
+        msg = x.recv(4096).decode().split("-")
         print(msg)
-        if msg[0:4] == "name" and "-"in msg:
-            for i in range(len(serv.connBuffer)):
-                if serv.connBuffer[i][0]==x:
-                    serv.conn[msg.split("-")[1]] = serv.connBuffer.pop(i)
-                    print(420)
-            serv.write("init_ack",x)
+        if msg[0] == "::name":
+            u = msg[1]
+            comp.pairList[u] = []
+            comp.conn[u] = x
+            print(420)
+            comp.sendall(list(comp.pairList.keys()))
+        elif msg[0] == "::cnct":
+            p1,p2 = msg[1].split(":")
+            if p1 in comp.pairList[p2]:
+                print("paired")
+                comp.pairList.pop(p1)
+                comp.pairList.pop(p2)
+
+                comp.write("auth-pair OK",p1,True)
+                comp.write("auth-pair OK",p2,True)
+            else:
+                comp.pairList[p1].append(p2)
         else:
-            msg = msg.split(":")
+            print(1)
             try:
-                recver = serv.conn[msg[0]]
-                serv.write(msg[1],recver)
+                recver = comp.conn[msg[0]]
+                comp.write(msg[1],recver,True)
             except KeyError:
-                serv.write("client not found", x)
+                comp.write("client not found", x)
  except ConnectionResetError:
-     connLeft(x)
-def connLeft(x):
-     for user,conn in serv.conn.items():
-         if conn[0]==x:
-             del serv.conn[user]
-             print("client has left: ",user)
-             for user,client in serv.conn.items():
-                 serv.write("left:"+user,client)
+     connLeft(x,comp)
+def connLeft(x,comp):
+     for k in comp.conn:
+         if comp.conn[k]==x:
              break
+     del comp.conn[k]
+     del comp.pairList[k]
+     print("client has left: ",k)
+     comp.sendall(list(comp.pairList.keys()))
 
 def convertih(ipv4=getIP()):
     return "".join([hex(int(i))[-2:] for i in ipv4.split(".")])
@@ -64,31 +75,42 @@ class Server:
         global t
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.socket.bind((myip, 6789))
-        self.connBuffer = []
         self.conn = {}
-
+        self.pairList = {}
         t = thr.Thread(target=self.startListen)
         t.start()
 
     def startListen(self):
         self.socket.listen(5)
         while True:
-            self.connBuffer.append(self.socket.accept())
-            print(self.connBuffer[-1])
-            t = thr.Thread(target=lambda: read(self.connBuffer[-1][0])
+            x = self.socket.accept()[0]
+            t = thr.Thread(target=lambda: read(x,self))
             t.start()
 
-    def write(self, msg,c):
+    def write(self, msg,c,user=False):
+        if user: c = self.conn[c]
         print(type(msg.encode()))
         c.send(msg.encode())
+    def sendall(self,msg,start = "players"):
+        print(self.conn)
+        for i in self.conn:
+            self.write(f"{start}-{str(msg)}",self.conn[i])
 class Client:
     def __init__(self, username = None):
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.ip = None
         self.user = username
+        self.servconn = []
+        self.paired = False
     def read(self):
         while True:
-            print(self.socket.recv(4096))
+                x = self.socket.recv(4096).decode("ascii").split("-")
+                print(x)
+                if x[0] == "players":
+                    self.servconn = eval(x[1].lstrip("dict_keys"))
+                    print(self.servconn)
+                elif x[0]=="auth" and x[1]=="pair OK":
+                    self.paired = True
 
     def write(self, msg):
         print(msg.encode())
@@ -99,7 +121,7 @@ class Client:
         try:
             print(self.user)
             self.socket.connect((self.ip, 6789))
-            self.write(f"name-{self.user}")
+            self.write(f"::name-{self.user}")
             t = thr.Thread(target=self.read)
             t.start()
             return True
