@@ -29,16 +29,19 @@ def read(x,comp):
                 comp.pairList.pop(p1)
                 comp.pairList.pop(p2)
 
-                comp.write("auth-pair OK",p1,True)
-                comp.write("auth-pair OK",p2,True)
+                comp.write(f"auth-pair OK-{p2}",p1,True)
+                comp.write(f"auth-pair OK-{p1}",p2,True)
             else:
                 comp.pairList[p1].append(p2)
         else:
             print(1)
             try:
+                print(comp.conn)
                 recver = comp.conn[msg[0]]
-                comp.write(msg[1],recver,True)
-            except KeyError:
+                comp.write(msg[1],recver)
+            except KeyError as e:
+                
+                print(e)
                 comp.write("client not found", x)
  except ConnectionResetError:
      connLeft(x,comp)
@@ -59,7 +62,7 @@ def converthi(ip4_e):
     ip = ""
     for i in range(4):
         if ip4_e[i * 2] == "x":
-            ip += str(int("0" + ip4_e[i * 2 + 1], 16))[:-2]
+            ip += str(int("0" + ip4_e[i * 2 + 1], 16))
         else:
             ip += str(int(ip4_e[i * 2 : i * 2 + 2], 16))
         ip += "."
@@ -73,6 +76,7 @@ t = None
 class Server:
     def __init__(self):
         global t
+        print(myip)
         self.socket = sck.socket(sck.AF_INET, sck.SOCK_STREAM)
         self.socket.bind((myip, 6789))
         self.conn = {}
@@ -102,6 +106,7 @@ class Client:
         self.user = username
         self.servconn = []
         self.paired = False
+        self.opp = None
     def read(self):
         while True:
                 x = self.socket.recv(4096).decode("ascii").split("-")
@@ -111,6 +116,8 @@ class Client:
                     print(self.servconn)
                 elif x[0]=="auth" and x[1]=="pair OK":
                     self.paired = True
+                    self.opp = x[2]
+                #else:process()#to be imported
 
     def write(self, msg):
         print(msg.encode())
@@ -118,6 +125,7 @@ class Client:
 
     def setip(self, ip):
         self.ip = converthi(ip)
+        print(self.ip)
         try:
             print(self.user)
             self.socket.connect((self.ip, 6789))
