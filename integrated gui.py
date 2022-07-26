@@ -162,7 +162,10 @@ class connectServer:
         self.enterbox.bind("<Return>",self.connServer)
         self.ele.append(self.enterbox)
     def connServer(self,key):
-        print(self.enterbox.get())
+        c = self.enterbox.get()
+        print(c)
+        if len(c)!=8:
+            self.l1 = Label(self.root,text = "The server you entered may not be running",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         x = comp.setip(self.enterbox.get())
         if x:
             destruct(self.ele)
@@ -196,11 +199,12 @@ class join():
                 for i in range(len(self.l)):
                     if self.l[i]!= comp.user:
                         n+=1
-                        self.ele.append(Button(self.root,padx = 200,pady = 3,text=self.l[i],borderwidth=0,command =
-                                               lambda a=i: self.joinconn(self.l[a])))
-                        self.ele[-1].place(relx=0.5,rely=i*0.1+0.05,anchor='center')
-    def joinconn(self,user2):
+                        self.ele.append(Button(self.root,padx = 200,pady = 3,text=self.l[i],borderwidth=0))
+                        self.ele[-1].configure(command =lambda a=i: self.joinconn(self.l[a],self.ele[-1]))
+                        self.ele[-1].place(relx=0.5,rely=n*0.1+0.17,anchor='center')
+    def joinconn(self,user2,b):
         print("J")
+        b.configure(bg= "blue")
         comp.write(f"::cnct-{comp.user}:{user2}")
     def transition(self):
         while True:
@@ -208,7 +212,7 @@ class join():
                 self.cont = False
                 print(self.ele)
                 destruct(self.ele+[self.lab])
-                message()
+                distributeMoney(root)
                 break
 
 class message:
@@ -241,12 +245,55 @@ class distributeMoney:
             return
         c = self.enterb.get()
         if c.isdigit() and 0<=int(c)<=1000:
+            global moneyToTeam
+            moneyToTeam = int(c)
             destruct(self.ele)
-            game(root)
+            auction(root)
         else:
             self.l.config(text = "Please enter a valid integer between 0 and 1000")
+moneyToTeam = None
+class auction():
+    def __init__(self,root):
+        canvas = Canvas(root, width = 660, height = 400, bg = 'black',relief = 'sunken')
+        canvas.place
+        self.root = root
+        self.canvas = canvas
         
+        root.geometry("700x400")
+        root.title("FIFA")
+        root.resizable(False,False)
+        root.config(bg = 'black')
+
+        label1 = Label(root,text = "bid:0",bg = 'black',font=("Arial", 20),fg = "white")
+        label2 = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg="white")
+        label3 = Label(root,text = "skill:",bg = 'black',font=("Arial", 20),fg = "white")
+
+        label1.place(x = 30,y = 90)
+        label2.place(x = 30,y = 150)
+        label3.place(x = 30,y = 210)
+
+        label1_ = Label(root,text = "bid:0",bg = 'black',font=("Arial", 20),fg = "white")
+        label2_ = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg = "white")
+        label3_ = Label(root,text = "skill:",bg = 'black',font=("Arial", 20),fg = "white")
+
+        label1_.place(x = 390,y = 90)
+        label2_.place(x = 390,y = 150)
+        label3_.place(x = 390,y = 210)
+
+        b1 = Button(root,command = lambda:self.raisebid(1), text= 'RAISE BID BY 100',padx = 50,pady = 12,borderwidth = 0,width = 2)
+        b2 = Button(root,command = lambda:self.back(1), text= 'BACKOUT',padx = 50,pady = 12,borderwidth = 0,width = 2)
+        b3 = Button(root,command = lambda:self.raisebid(2), text= 'RAISE BID BY 100',padx = 50,pady = 12,borderwidth = 0,width = 2)
+        b4 = Button(root,command = lambda:self.back(2), text= 'BACKKOUT',padx = 50,pady = 12,borderwidth = 0,width = 2)
     
+        b1.place(x = 20, y = 320)
+        b2.place(x = 175, y = 320)
+        b3.place(x = 377, y = 320)
+        b4.place(x = 533, y = 320)
+        self.ele = [self.canvas,label1,label2,label3,label1_,label2_,label3_,b1,b2,b3,b4]
+    def raisebid(self, auctplr):
+        comp.write(f"{comp.opp}-raisebid:{auctplr}")
+        
+    def back
 class game:
     def __init__(self,master):
      self.master=master
