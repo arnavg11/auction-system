@@ -204,16 +204,35 @@ class join():
                 destruct(self.ele+[self.l])
 class distributeMoney:
     def __init__(self,root):
-        self.master=master
-        self.master.geometry("700x400")
+        self.root=root
+        self.root.configure(bg = "black")
+        self.root.geometry("700x400")
         self.ele = []
-        self.ele.append(self.l = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
-)
+        self.ele.append(Label(self.root,text = "how much of your money do you want to invest in your base team?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
+        self.ele[-1].pack()
+        self.ele.append(Entry(self.root,width = 60,background = "white"))
+        self.ele[-1].pack()
+        self.enterb = self.ele[-1]
+        self.enterb.bind("<Key>",self.sub)
+        self.l = Label(self.root,font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
+        self.l.pack()
+        self.ele.append(self.l)
+    def sub(self,key):
+        if ord(key.char)!=13:
+            return
+        c = self.enterb.get()
+        if c.isdigit() and 0<=int(c)<=1000:
+            destruct(self.ele)
+            game(root)
+        else:
+            self.l.config(text = "Please enter a valid integer between 0 and 1000")
+        
+    
 class game:
     def __init__(self,master):
      self.master=master
      self.master.geometry("700x400")
-     
+     self.root.configure(bg = "black")
      self.button1 = Button(self.master,text="GAME",padx=130,pady=50,borderwidth=0)
      self.button2 = Button(self.master,text="AUCTION",padx=110,pady=50,borderwidth=0)
      self.button3 = Button(self.master,text="CARDS",padx=127,pady=50,borderwidth=0)
@@ -233,4 +252,4 @@ class game:
     def close_window(self):
      self.master.destroy()
     
-distributeMoney()
+distributeMoney(root)
