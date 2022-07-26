@@ -10,7 +10,7 @@ def destruct(ele):
         print(i)
         i.destroy()
 
-
+otherPlayer = None
 root = Tk()
 
 class serverOrClient:
@@ -165,7 +165,6 @@ class connectServer:
         print(self.enterbox.get())
         x = comp.setip(self.enterbox.get())
         if x:
-            pass
             destruct(self.ele)
             join(root)
         else:
@@ -177,14 +176,18 @@ class join():
         self.root.geometry("700x400")
         self.ele = []
         self.l = None
+        self.cont = True
         t = thr.Thread(target=self.updateList)
         t.start()
         t2 = thr.Thread(target=self.transition)
         t2.start()
-        self.l = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
-        self.l.pack()
+        self.lab = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
+        self.lab.pack()
+        
     def updateList(self):
         while True:
+            if not self.cont:
+                break
             if self.l !=comp.servconn:
                 destruct(self.ele)
                 print(2)
@@ -194,14 +197,30 @@ class join():
                     if self.l[i]!= comp.user:
                         n+=1
                         self.ele.append(Button(self.root,padx = 200,pady = 3,text=self.l[i],borderwidth=0,command =
-                                               lambda: self.joinconn(self.l[i])).place(relx=0.5,rely=i*0.1+0.05,anchor='center'))
+                                               lambda a=i: self.joinconn(self.l[a])))
+                        self.ele[-1].place(relx=0.5,rely=i*0.1+0.05,anchor='center')
     def joinconn(self,user2):
         print("J")
         comp.write(f"::cnct-{comp.user}:{user2}")
     def transition(self):
         while True:
             if comp.paired:
-                destruct(self.ele+[self.l])
+                self.cont = False
+                print(self.ele)
+                destruct(self.ele+[self.lab])
+                message()
+                break
+
+class message:
+    def __init__(self,root=root):
+        self.root = root
+        self.root.configure(bg = "black")
+        self.root.geometry("700x400")
+        self.enterbox = Entry(self.root,width = 60,background = "white")
+        self.enterbox.pack()
+        self.enterbox.bind("<Return>",self.onEnter)
+    def onEnter(self,k):
+        comp.write(f"{comp.opp}-{self.enterbox.get()}")
 class distributeMoney:
     def __init__(self,root):
         self.root=root
@@ -252,4 +271,4 @@ class game:
     def close_window(self):
      self.master.destroy()
     
-distributeMoney(root)
+serverOrClient(root)
