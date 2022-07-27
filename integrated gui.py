@@ -184,8 +184,10 @@ class join():
         t.start()
         t2 = thr.Thread(target=self.transition)
         t2.start()
+        self.lab1 = Label(root,text = f"your username is: {comp.user}",bg = 'black',font=("Arial", 13),fg = "white")
         self.lab = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         self.lab.pack()
+        self.lab1.pack()
     def updateList(self):
         while True:
             if not self.cont:
@@ -199,7 +201,8 @@ class join():
                     if self.l[i]!= comp.user:
                         n+=1
                         self.ele.append(Button(self.root,padx = 200,pady = 3,text=self.l[i],borderwidth=0))
-                        self.ele[-1].configure(command =lambda a=i: self.joinconn(self.l[a],self.ele[-1]))
+                        x= self.ele[-1]
+                        self.ele[-1].configure(command =lambda a=i,b=x: self.joinconn(self.l[a],b))
                         self.ele[-1].place(relx=0.5,rely=n*0.1+0.17,anchor='center')
     def joinconn(self,user2,b):
         print("J")
@@ -224,12 +227,18 @@ class message:
         self.enterbox.bind("<Return>",self.onEnter)
     def onEnter(self,k):
         comp.write(f"{comp.opp}-{self.enterbox.get()}")
+moneyToTeam = None
+money = 1000
 class distributeMoney:
     def __init__(self,root):
+        self.bid = [0,0]
+        self.bidDone = [False,False]
         self.root=root
         self.root.configure(bg = "black")
         self.root.geometry("700x400")
         self.ele = []
+        self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
+        self.label1_ = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.ele.append(Label(self.root,text = "how much of your money do you want to invest in your base team?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
         self.ele[-1].pack()
         self.ele.append(Entry(self.root,width = 60,background = "white"))
@@ -239,75 +248,97 @@ class distributeMoney:
         self.l = Label(self.root,font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         self.l.pack()
         self.ele.append(self.l)
+        comp.eventhand = self.evnt
     def sub(self,key):
         if ord(key.char)!=13:
             return
         c = self.enterb.get()
         if c.isdigit() and 0<=int(c)<=1000:
-            global moneyToTeam
+            global moneyToTeam,money
             moneyToTeam = int(c)
+            money-=moneyToTeam
             destruct(self.ele)
-            auction(root)
+            self._init__(root)
         else:
             self.l.config(text = "Please enter a valid integer between 0 and 1000")
-moneyToTeam = None
-class auction():
-    def __init__(self,root):
+    def _init__(self,root):
         global comp
         canvas = Canvas(root, width = 660, height = 400, bg = 'black',relief = 'sunken')
         canvas.place
         self.root = root
         self.canvas = canvas
-        
+        self.moneyLabel = Label(root,text = f"initial money:{money}",bg = 'black',font=("Arial", 20),fg = "white")
         root.geometry("700x400")
         root.title("FIFA")
         root.resizable(False,False)
         root.config(bg = 'black')
-        self.bid = [0,0]
-        label1 = Label(root,text = "bid:0",bg = 'black',font=("Arial", 20),fg = "white")
-        label2 = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg="white")
-        label3 = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
+        self.label2 = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg="white")
+        self.label3 = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
 
-        label1.place(x = 30,y = 90)
-        label2.place(x = 30,y = 150)
-        label3.place(x = 30,y = 210)
+        self.label1.place(x = 30,y = 90)
+        self.label2.place(x = 30,y = 150)
+        self.label3.place(x = 30,y = 210)
 
-        label1_ = Label(root,text = "bid:0",bg = 'black',font=("Arial", 20),fg = "white")
-        label2_ = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg = "white")
-        label3_ = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
+        self.label2_ = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg = "white")
+        self.label3_ = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
 
-        label1_.place(x = 390,y = 90)
-        label2_.place(x = 390,y = 150)
-        label3_.place(x = 390,y = 210)
+        self.label1_.place(x = 390,y = 90)
+        self.label2_.place(x = 390,y = 150)
+        self.label3_.place(x = 390,y = 210)
 
         b1 = Button(root,command = lambda:self.raisebid(1), text= 'RAISE BID BY 100',padx = 50,pady = 12,borderwidth = 0,width = 2)
         b2 = Button(root,command = lambda:self.back(1), text= 'BACKOUT',padx = 50,pady = 12,borderwidth = 0,width = 2)
         b3 = Button(root,command = lambda:self.raisebid(2), text= 'RAISE BID BY 100',padx = 50,pady = 12,borderwidth = 0,width = 2)
         b4 = Button(root,command = lambda:self.back(2), text= 'BACKKOUT',padx = 50,pady = 12,borderwidth = 0,width = 2)
-    
+        self.moneyLabel.place(x=250,y=5)
         b1.place(x = 20, y = 320)
         b2.place(x = 175, y = 320)
         b3.place(x = 377, y = 320)
         b4.place(x = 533, y = 320)
-        comp.eventhand = self.evnt
-        self.ele = [self.canvas,label1,label2,label3,label1_,label2_,label3_,b1,b2,b3,b4]
+        self.ele = [self.canvas,self.label1,self.moneyLabel,self.label2,self.label3,self.label1_,self.label2_,self.label3_,b1,b2,b3,b4]
     def raisebid(self, auctplr):
+        if money<100+self.bid[0]*(auctplr=="1" or self.label1.cget("fg")=="green")+self.bid[1]*(auctplr=="2" or self.label1_.cget("fg")=="green"):
+            return
         comp.write(f"{comp.opp}-raisebid:{auctplr}")
-        self.evnt(f"{comp.opp}-raisebid:{auctplr}".split("-"),True)
+        print(f"{comp.opp}-raisebid:{auctplr}")
+        self.evnt([f"raisebid:{auctplr}"],True)
     def back(self,plr):
-        comp.write(f"{comp.opp}-back:{plr}")
-        self.evnt(f"{comp.opp}-back:{plr}".split("-"),True)
+        if (self.label1.cget("fg")!="red" and plr == "1") or (self.label1_.cget("fg")!="red" and plr == "2"):
+            return
+        comp.write(comp.opp+"-back:"+str(plr))
+        self.evnt(("back:"+str(plr)).split("-"),True)
     def evnt(self,msg,msgsentbyself = False):
         print(msg)
-        msg = msg[1].split(":")
+        msg = msg[0].split(":")
         if msg[0] == "raisebid":
-            self.bid[int(msg[1])-1]+=100
-            if msg[1]=="1":
-                label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
-            elif msg[1]=="2":
-                label1 = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
+            
+            print((self.bid,msg[1]))
+            if (not self.bidDone[0]) and msg[1]=="1":
+                self.bid[0]+=100
+                self.label1.configure(text = "bid:"+str(self.bid[0]))
+                if msgsentbyself:
+                    self.label1.configure(fg = "green")
+                else:
+                    self.label1.configure(fg = "red")
+            elif (not self.bidDone[1]) and msg[1]=="2":
+                self.bid[1]+=100
+                self.label1_.configure(text = "bid:"+str(self.bid[1]))
+                if msgsentbyself:
+                    self.label1_.configure(fg = "green")
+                else:
+                    self.label1_.configure(fg = "red")
+            
         elif msg[0]=="back":
-            pass
+            print(5)
+            if msg[1]=="1":
+                self.label1.configure(text = "bid:"+str(self.bid[0])+"(confirmed)")
+                self.bidDone[0] = True
+            elif msg[1]=="2":
+                self.label1_.configure(text = "bid:"+str(self.bid[1])+"(confirmed)")
+                self.bidDone[1] = True
+            if self.bidDone[0] and self.bidDone[1]:
+                destruct(self.ele)
+                game(root)
                 
 class game:
     def __init__(self,master):
