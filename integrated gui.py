@@ -186,7 +186,6 @@ class join():
         t2.start()
         self.lab = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         self.lab.pack()
-        
     def updateList(self):
         while True:
             if not self.cont:
@@ -254,6 +253,7 @@ class distributeMoney:
 moneyToTeam = None
 class auction():
     def __init__(self,root):
+        global comp
         canvas = Canvas(root, width = 660, height = 400, bg = 'black',relief = 'sunken')
         canvas.place
         self.root = root
@@ -263,10 +263,10 @@ class auction():
         root.title("FIFA")
         root.resizable(False,False)
         root.config(bg = 'black')
-
+        self.bid = [0,0]
         label1 = Label(root,text = "bid:0",bg = 'black',font=("Arial", 20),fg = "white")
         label2 = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg="white")
-        label3 = Label(root,text = "skill:",bg = 'black',font=("Arial", 20),fg = "white")
+        label3 = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
 
         label1.place(x = 30,y = 90)
         label2.place(x = 30,y = 150)
@@ -274,7 +274,7 @@ class auction():
 
         label1_ = Label(root,text = "bid:0",bg = 'black',font=("Arial", 20),fg = "white")
         label2_ = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg = "white")
-        label3_ = Label(root,text = "skill:",bg = 'black',font=("Arial", 20),fg = "white")
+        label3_ = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
 
         label1_.place(x = 390,y = 90)
         label2_.place(x = 390,y = 150)
@@ -289,11 +289,26 @@ class auction():
         b2.place(x = 175, y = 320)
         b3.place(x = 377, y = 320)
         b4.place(x = 533, y = 320)
+        comp.eventhand = self.evnt
         self.ele = [self.canvas,label1,label2,label3,label1_,label2_,label3_,b1,b2,b3,b4]
     def raisebid(self, auctplr):
         comp.write(f"{comp.opp}-raisebid:{auctplr}")
-        
-    def back
+        self.evnt(f"{comp.opp}-raisebid:{auctplr}".split("-"),True)
+    def back(self,plr):
+        comp.write(f"{comp.opp}-back:{plr}")
+        self.evnt(f"{comp.opp}-back:{plr}".split("-"),True)
+    def evnt(self,msg,msgsentbyself = False):
+        print(msg)
+        msg = msg[1].split(":")
+        if msg[0] == "raisebid":
+            self.bid[int(msg[1])-1]+=100
+            if msg[1]=="1":
+                label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
+            elif msg[1]=="2":
+                label1 = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
+        elif msg[0]=="back":
+            pass
+                
 class game:
     def __init__(self,master):
      self.master=master
