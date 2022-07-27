@@ -107,6 +107,7 @@ class Client:
         self.servconn = []
         self.paired = False
         self.opp = None
+        self.eventhand = None
     def read(self):
         while True:
                 x = self.socket.recv(4096).decode("ascii").split("-")
@@ -117,7 +118,7 @@ class Client:
                 elif x[0]=="auth" and x[1]=="pair OK":
                     self.paired = True
                     self.opp = x[2]
-                #else:process()#to be imported
+                else:self.eventhand(x)#to be imported
 
     def write(self, msg):
         print(msg.encode())
@@ -135,4 +136,5 @@ class Client:
             return True
         except:
             return False
- 
+         
+         
