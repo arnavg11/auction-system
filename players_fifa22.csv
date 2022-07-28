@@ -1,0 +1,932 @@
+Name,Potential,BestPosition
+L. Messi,93,RW
+R. Lewandowski,92,ST
+Cristiano Ronaldo,91,ST
+K. Mbappé,95,ST
+J. Oblak,93,GK
+K. De Bruyne,91,CM
+Neymar Jr,91,LW
+N. Kanté,90,CDM
+H. Kane,90,ST
+M. ter Stegen,92,GK
+M. Neuer,90,GK
+H. Son,89,LM
+Casemiro,89,CDM
+K. Benzema,89,CF
+T. Courtois,91,GK
+S. Mané,89,LW
+V. van Dijk,89,CB
+G. Donnarumma,93,GK
+M. Salah,89,RW
+Ederson,91,GK
+J. Kimmich,90,CDM
+Alisson,90,GK
+R. Lukaku,88,ST
+Sergio Ramos,88,CB
+L. Suárez,88,ST
+T. Kroos,88,CM
+E. Haaland,93,ST
+K. Navas,88,GK
+Bruno Fernandes,89,CAM
+R. Sterling,89,LW
+M. Verratti,87,CM
+L. Modrić,87,CM
+A. Di María,87,RW
+W. Szczęsny,87,GK
+T. Müller,87,CAM
+C. Immobile,87,ST
+P. Pogba,87,CM
+L. Goretzka,88,CM
+Marquinhos,90,CB
+P. Dybala,88,CAM
+A. Robertson,88,LB
+F. de Jong,92,CM
+T. Alexander-Arnold,92,RB
+Rúben Dias,91,CB
+S. Agüero,87,ST
+H. Lloris,87,GK
+J. Sancho,91,CAM
+K. Koulibaly,86,CB
+M. Škriniar,88,CB
+R. Varane,88,CB
+L. Insigne,86,LW
+K. Casteels,87,GK
+Parejo,86,CM
+Sergio Busquets,86,CDM
+Thiago,86,CM
+Jordi Alba,86,LB
+M. Hummels,86,CB
+G. Chiellini,86,CB
+S. Handanovič,86,GK
+Rodri,89,CDM
+Marcos Llorente,89,CAM
+R. Mahrez,86,RW
+Gerard Moreno,86,ST
+J. Vardy,86,ST
+João Cancelo,87,RB
+A. Laporte,89,CB
+K. Coman,87,LM
+Bernardo Silva,86,CAM
+Fabinho,88,CDM
+Roberto Firmino,85,CF
+A. Griezmann,85,CAM
+E. Hazard,85,LW
+P. Gulácsi,85,GK
+E. Cavani,85,ST
+Y. Sommer,85,GK
+David Silva,85,CAM
+M. Depay,86,CF
+K. Schmeichel,85,GK
+A. Gómez,85,CAM
+I. Gündoğan,85,CM
+M. Reus,85,CAM
+L. Bonucci,85,CB
+K. Walker,85,RB
+P. Aubameyang,85,ST
+Koke,85,CM
+Thiago Silva,85,CB
+S. Gnabry,86,RM
+S. de Vrij,85,CB
+M. de Ligt,90,CB
+A. Hakimi,88,RB
+M. Rashford,89,CAM
+L. Martínez,89,ST
+Oyarzabal,89,LW
+W. Ndidi,88,CB
+S. Milinković-Savić,87,CM
+Jorginho,85,CM
+Carvajal,85,RB
+L. Digne,84,LB
+D. Alaba,84,CB
+Luis Alberto,84,CAM
+D. Tadić,84,LW
+W. Ben Yedder,84,CF
+P. Foden,92,CAM
+J. Iličić,84,CAM
+E. Martínez,85,GK
+Iago Aspas,84,ST
+H. Maguire,86,CB
+De Gea,84,GK
+Piqué,84,CB
+K. Trippier,84,RB
+Fernando,84,CDM
+J. Henderson,84,CDM
+G. Wijnaldum,84,CM
+D. Mertens,84,CF
+M. Sabitzer,85,CM
+Jesús Navas,84,RB
+Z. Ibrahimović,84,ST
+K. Havertz,92,CAM
+S. Savić,84,CB
+T. Hernández,90,LB
+Y. Tielemans,87,CM
+J. Grealish,85,CAM
+N. Fekir,84,CAM
+L. Sané,87,ST
+N. Barella,89,CM
+M. Acuña,84,LB
+M. Brozović,84,CDM
+André Silva,85,ST
+F. Kessié,86,CDM
+L. Shaw,86,LB
+M. Ginter,85,CB
+Felipe,84,CB
+Y. Carrasco,84,LM
+F. Kostić,84,LM
+H. Ziyech,84,RW
+R. Guerreiro,84,LB
+Ricardo Pereira,84,RB
+T. Werner,87,ST
+M. Maignan,89,GK
+J. Giménez,88,CB
+S. Coates,83,CB
+J. Stones,86,CB
+Allan,83,CDM
+K. Volland,83,ST
+Morata,83,ST
+M. Icardi,83,ST
+L. Spinazzola,83,LWB
+N. Pope,83,GK
+R. Jiménez,83,ST
+F. Acerbi,83,CB
+K. Manolas,83,CB
+A. Rüdiger,84,CB
+J. Boateng,83,CB
+Fernandinho,83,CDM
+C. Vela,83,RW
+A. Witsel,83,CDM
+Sergio Asenjo,83,GK
+S. Kjær,83,CB
+E. Džeko,83,ST
+T. Alderweireld,83,CB
+H. Mkhitaryan,83,CF
+Azpilicueta,83,CB
+Muniain,83,CAM
+Canales,83,CAM
+L. Hrádecký,83,GK
+Alex Sandro,83,LB
+B. Leno,84,GK
+J. Pickford,85,GK
+J. Koundé,89,CB
+L. Ocampos,83,LW
+P. Kimpembe,87,CB
+J. Matip,83,CB
+M. Kovačić,84,CM
+João Félix,91,CAM
+F. Valverde,89,CM
+F. Chiesa,91,CAM
+E. Mendy,85,GK
+M. Mount,89,CAM
+O. Dembélé,88,LM
+Gabriel Jesus,87,ST
+Arthur,85,CM
+Ronaldo Cabrais,83,RM
+A. Wan-Bissaka,87,RWB
+F. Mendy,86,LWB
+J. Cuadrado,83,RB
+Merino,87,CM
+D. Zapata,83,ST
+R. Gosens,83,LWB
+T. Lemar,86,CAM
+P. Højbjerg,86,CDM
+A. Correa,86,CAM
+T. Partey,83,CM
+A. Kramarić,83,ST
+Angeliño,86,LM
+L. Hernández,86,CB
+Marco Asensio,86,CAM
+W. Weghorst,83,ST
+Gayà,86,LWB
+A. Davies,89,LB
+Unai Simón,86,GK
+Richarlison,87,ST
+C. Romero,87,CB
+D. Dumfries,84,RB
+Raphinha,87,LM
+A. Isak,86,ST
+Ferran Torres,90,CAM
+F. Neuhaus,87,CM
+Y. En-Nesyri,86,ST
+T. Ndombele,87,CAM
+T. Souček,85,CDM
+Éder Militão,89,CB
+Raphaelinho Anjos,82,GK
+Pau Torres,89,CB
+D. Livaković,87,GK
+Dani Olmo,87,CAM
+Josué Chiamulera,82,CB
+C. Pulisic,88,RM
+B. Chilwell,86,LWB
+J. Maddison,85,CAM
+N. Süle,87,CB
+Alex Telles,82,LB
+Anderson Talisca,83,CAM
+R. De Paul,83,CM
+Rafa,82,RM
+Diego Carlos,84,CB
+A. Rebić,82,LM
+Pepe,82,CB
+M. Locatelli,87,CM
+L. Bailey,86,LM
+M. Ødegaard,88,CAM
+Rúben Neves,87,CM
+Diogo Jota,87,ST
+J. Gomez,88,CB
+Fabián,86,CM
+Palhinha,87,CB
+D. Upamecano,90,CB
+Mario Hermoso,85,CB
+C. Lenglet,86,CB
+C. Eriksen,82,CM
+Raúl Albiol,82,CB
+Portu,82,RW
+L. Muriel,82,ST
+A. Lopes,83,GK
+Campaña,82,CM
+Gabriel Paulista,82,CB
+J. Veretout,83,CDM
+Suso,82,RW
+T. Hazard,82,LM
+Juan Bernat,82,LB
+H. Çalhanoğlu,83,CAM
+Isco,82,CAM
+E. Can,83,CDM
+Saúl,85,CM
+M. de Roon,82,CDM
+Y. Bounou,82,GK
+Grimaldo,85,CM
+A. Romagnoli,83,CB
+D. Berardi,82,RW
+N. Tagliafico,82,LB
+W. Zaha,82,CF
+Neto,82,GK
+L. Fabiański,82,GK
+Oscar,82,CAM
+S. Sirigu,82,GK
+I. Rakitić,82,CM
+G. Bale,82,RM
+Rui Patrício,82,GK
+E. Banega,82,CDM
+M. Pjanić,82,CM
+Yuri Berchiche,82,LB
+L. Stindl,82,CAM
+K. Trapp,82,GK
+O. Baumann,82,GK
+Coutinho,82,CAM
+D. Blind,82,CB
+M. Götze,82,CAM
+A. Areola,84,GK
+J. Corona,82,RM
+A. Lacazette,82,ST
+I. Gueye,82,CDM
+Mário Fernandes,82,RB
+P. Gollini,87,GK
+D. Rice,87,CDM
+Danilo Pereira,81,CDM
+M. Lazzari,81,RWB
+Fred,81,CDM
+Lucas Vázquez,81,RW
+A. Belotti,82,ST
+E. Forsberg,81,CAM
+Pedri,91,CAM
+Renan Lodi,86,LWB
+D. Kulusevski,89,LM
+E. Tapsoba,88,CB
+Reguilón,84,LB
+M. Diaby,88,LM
+Pedro Gonçalves,88,CAM
+Cucurella,87,LM
+R. James,86,RWB
+A. Januzaj,81,RW
+Rui Silva,84,GK
+L. Paredes,83,CM
+M. Arnold,82,CM
+E. Višća,81,RM
+A. Cragno,83,GK
+J. Ward-Prowse,84,CM
+A. Milik,82,ST
+W. Orban,82,CB
+Iñigo Martínez,81,CB
+K. Zouma,84,CB
+T. Vaclík,81,GK
+A. Florenzi,81,RB
+J. Tarkowski,82,CB
+A. Marchesín,81,GK
+A. Rabiot,82,CM
+P. Zieliński,82,CAM
+Juiano Mestres,81,CB
+H. Lozano,82,RW
+Rosberto Dourado,81,CDM
+Louri Beretta,81,ST
+Welington Dano,81,LB
+L. Pellegrini,86,CAM
+Yeray,83,CB
+Álex Remiro,84,GK
+G. Lo Celso,85,CAM
+N. Mukiele,85,CB
+N. Pépé,82,RM
+K. Laimer,85,RWB
+Gonçalo Guedes,86,LM
+K. Phillips,85,CDM
+David Soria,82,GK
+D. Calvert-Lewin,85,ST
+Otávio,82,LM
+D. van de Beek,86,CM
+M. Dúbravka,81,GK
+H. Hateboer,81,RWB
+D. Djené,82,CB
+Morales,81,ST
+M. Politano,81,RM
+Iñaki Williams,82,ST
+J. Correa,82,CAM
+J. Musso,83,GK
+J. Brandt,85,CAM
+O. Vlachodimos,83,GK
+A. Martial,84,CAM
+D. Machís,81,LM
+Lucas Moura,81,RM
+Adryan Zonta,81,LWB
+Nacho Fernández,81,CB
+H. Aouar,86,CAM
+S. Mandanda,81,GK
+G. Higuaín,81,ST
+José Fonte,81,CB
+J. Vertonghen,81,CB
+Lucas Leiva,81,CDM
+Adán,81,GK
+I. Perišić,81,LM
+A. Vidal,81,CM
+M. Kruse,81,CF
+M. Arnautović,81,ST
+Marlos,81,CAM
+B. André,81,CDM
+N. Otamendi,81,CB
+H. Barnes,84,CAM
+Paco Alcácer,81,ST
+Carlos Soler,88,CAM
+Lucas Paquetá,85,CAM
+C. Nkunku,86,CAM
+R. Malinovskyi,81,CF
+Oswaldinato,81,ST
+T. Delaney,81,CB
+Aitor,81,GK
+A. Delort,81,ST
+K. Kampl,81,CM
+D. Ings,81,ST
+Pizzi,81,CM
+Jonathan Viera,81,CAM
+J. Rodríguez,81,CAM
+A. Consigli,81,GK
+H. Herrera,81,CM
+A. Gignac,81,ST
+B. Yılmaz,81,ST
+Joaquín,81,CAM
+S. Berghuis,81,RW
+J. Cillessen,81,GK
+Sergi Roberto,81,RB
+Danilo,81,RB
+Nani,81,LW
+A. Christensen,85,CB
+G. Laborde,81,ST
+Pacheco,82,GK
+Jonny,81,LWB
+D. Alli,82,CAM
+T. Strakosha,83,GK
+P. Max,81,LB
+João Mário,80,CM
+W. Benítez,82,GK
+F. Armani,80,GK
+G. Rulli,80,GK
+G. Di Lorenzo,80,RB
+C. Tolisso,81,CM
+Embarba,80,RM
+J. Denayer,83,CB
+N. Keïta,83,CAM
+Pau López,80,GK
+V. Lindelöf,82,CDM
+L. Klostermann,84,RB
+Everton,83,CAM
+S. Lainer,80,RB
+Bartra,80,CB
+A. Mandi,81,CB
+Q. Promes,80,RM
+M. Hamšík,80,CM
+D. Malen,85,ST
+G. Buffon,80,GK
+G. Ochoa,80,GK
+I. Akinfeev,80,GK
+João Moutinho,80,CM
+J. Evans,80,CB
+Raúl García,80,CM
+D. Wass,80,CM
+A. Ogbonna,80,CB
+S. Mignolet,80,GK
+Marcelo,80,CAM
+D. Payet,80,LW
+M. Benatia,80,CB
+Nacho Monreal,80,LB
+R. Nainggolan,80,CAM
+D. Godín,80,CB
+C. Söyüncü,83,CB
+V. Osimhen,87,ST
+X. Schlager,84,CDM
+D. Henderson,87,GK
+B. Saka,88,LM
+V. Coufal,80,RB
+V. Tsygankov,86,CAM
+Pedro Porro,87,RWB
+N. Vlašić,86,CAM
+L. Díaz,86,RM
+Unai Núñez,84,CB
+R. Baku,85,RM
+M. Gómez,85,ST
+Vinícius Jr.,90,RM
+A. Bastoni,89,CB
+S. McTominay,84,CDM
+B. Kamara,86,CDM
+J. Pavlenka,82,GK
+N. Mazraoui,85,RB
+F. Muslera,80,GK
+A. Sánchez,80,CF
+J. Martínez,80,ST
+E. Zahavi,80,ST
+M. Hinteregger,80,CB
+R. Freuler,80,CM
+J. Draxler,80,CAM
+D. Demme,80,CDM
+S. Vrsaljko,80,RB
+Pozuelo,80,CAM
+K. Fortounis,80,CAM
+F. Thauvin,80,RW
+José Callejón,80,RM
+S. Umtiti,80,CB
+T. Savanier,80,CAM
+S. Haller,81,ST
+Z. Feddal,80,CB
+E. Andrada,81,GK
+M. Keane,81,CB
+Roger,80,ST
+Rafinha,80,CM
+L. Torreira,84,CDM
+Ismaily,80,LB
+João Pedro,80,CF
+A. Ramsey,80,CM
+Rafael Tolói,80,CB
+R. Bürki,80,GK
+F. Coquelin,80,CM
+Guaita,80,GK
+E. Salvio,80,RM
+R. Pereyra,80,CM
+E. Pérez,80,CDM
+N. Lodeiro,80,CAM
+G. Krychowiak,80,CDM
+M. Perin,82,GK
+Sérgio Oliveira,80,CM
+Pablo Sarabia,80,CAM
+C. Bakambu,80,ST
+C. Aránguiz,80,CDM
+J. Rodríguez,80,ST
+Capa,80,RB
+Borja Iglesias,80,ST
+Maikel Catarino,80,RB
+M. Dmitrović,81,GK
+O. Zinchenko,85,LB
+Nélson Semedo,81,RWB
+M. Akanji,83,CB
+D. Zakaria,86,CB
+G. Mancini,84,CB
+S. Sensi,83,CM
+Gerson,84,CDM
+Joan Jordán,81,CM
+Laure Santeiro,80,CAM
+Tony Abranjes,80,CB
+Renato Sanches,86,CAM
+I. Bennacer,84,CM
+K. Tierney,86,LWB
+S. Bergwijn,84,CAM
+Álex Berenguer,81,RM
+J. Bamba,83,RM
+Héniton Pires,80,GK
+Luimo Boas Santos,79,CF
+C. Wood,79,ST
+N. Matić,79,CDM
+Ander Herrera,79,CDM
+Gao Late,79,CF
+L. Rodríguez,79,CAM
+Ai Kesen,79,ST
+Marcos Alonso,79,LWB
+Mario Gaspar,79,RB
+M. Silvestri,79,GK
+S. El Shaarawy,79,LW
+A. Cresswell,79,LB
+M. Antonio,79,ST
+Illarramendi,79,CDM
+L. de Jong,79,ST
+B. Mee,79,CB
+X. Shaqiri,79,RM
+Iborra,79,CDM
+M. Suárez,79,CAM
+Rafael Carioca,79,CDM
+Y. M'Vila,79,CDM
+Montoro,79,CDM
+N. Gudelj,79,CDM
+Germán,79,CB
+Y. El Arabi,79,ST
+C. Coady,81,CDM
+C. Kramer,79,CDM
+D. Klaassen,79,CAM
+A. Carrillo,79,RM
+Álvaro,79,CB
+K. Bellarabi,79,RW
+W. Boly,79,CB
+Sergi Darder,80,CM
+Deulofeu,79,LM
+E. Dier,80,CB
+G. Kondogbia,79,CM
+R. Gikiewicz,79,GK
+B. Lecomte,80,GK
+Cristian Tello,79,LM
+G. Xhaka,79,CDM
+Lucas Pérez,79,ST
+D. D'Ambrosio,79,CB
+A. Oxlade-Chamberlain,79,CAM
+Rodrigo,79,LW
+O. Giroud,79,ST
+C. Wilson,79,ST
+G. Sigurðsson,79,CAM
+B. Matuidi,79,CDM
+N. Guzmán,79,GK
+U. Çakır,83,GK
+R. Aguilar,79,RB
+A. Marušić,79,RB
+R. Bensebaini,82,CB
+Z. Çelik,82,RB
+A. Meret,86,GK
+E. Bailly,80,CB
+A. Golovin,83,RM
+E. Buendía,84,CAM
+Aritz Elustondo,81,CB
+Pablo Fornals,82,CM
+G. Arias,79,GK
+B. Pavard,82,RB
+M. Thuram,85,ST
+E. Ávila,80,ST
+K. Dolberg,83,ST
+Ronaldo Esler,79,LB
+Adnan Vidual,79,RB
+Everton Andrão,79,CDM
+Melvin Parrela,79,CB
+Gabri Prestão,79,GK
+Mata,79,ST
+T. Castagne,82,RB
+M. Özil,79,CAM
+D. Zappacosta,79,RWB
+D. Ospina,79,GK
+A. Candreva,79,RM
+M. Dembélé,79,CM
+B. Gomis,79,ST
+B. Costil,79,GK
+F. Ribéry,79,CAM
+Ricardo Horta,80,CAM
+Edgar Badia,80,GK
+A. Izzo,80,CB
+A. Saint-Maximin,84,CAM
+J. Weigl,82,CDM
+Paulinho,79,ST
+M. Dahoud,82,CM
+H. Traoré,79,RB
+T. Bakayoko,81,CDM
+Munir,80,CAM
+Y. Mina,81,CB
+R. Tapia,83,CB
+D. Sánchez,81,CB
+N. Elvedi,83,CB
+M. Uribe,79,CM
+R. Ruidíaz,79,ST
+S. Arias,79,RB
+J. Quintero,79,CAM
+S. Botman,85,CB
+J. Bellingham,89,CM
+Antony,88,CAM
+José Sá,81,GK
+F. Bernardeschi,79,CAM
+P. Onuachu,80,ST
+V. Grifo,79,LM
+K. Demirbay,79,CM
+Rubén Peña,79,RB
+Rubén García,79,LM
+C. Mbemba,82,CB
+K. Mbabu,82,RB
+J. Hofmann,79,RM
+Emerson,84,RB
+De Tomás,82,ST
+C. Günter,79,LB
+B. Djimsiti,79,CB
+A. Doucouré,79,CM
+Matheus,81,GK
+William Carvalho,79,CDM
+J. Lingard,79,CAM
+Kepa,83,GK
+Manu Trigueros,79,CM
+A. Plea,79,CF
+B. Davies,79,LB
+J. Milner,79,CDM
+Bruno Guimarães,84,CM
+Iniesta,79,CAM
+M. Lacroix,86,CB
+Y. Bissouma,84,CM
+Rodrygo,88,CAM
+L. Jović,84,ST
+Gabriel,84,CB
+M. Arambarri,84,CDM
+D. Kamada,82,CAM
+F. Tomori,85,CB
+Zubeldia,84,CDM
+Odriozola,82,RB
+P. Schick,82,ST
+J. Ikoné,83,CAM
+G. Kobel,84,GK
+Lucas Veríssimo,84,CB
+T. Stepanenko,79,CDM
+M. Senesi,85,CB
+N. Maksimović,84,CDM
+O. Wijndal,84,LWB
+M. Taremi,79,ST
+A. Tchouaméni,85,CM
+T. Koopmeiners,84,CM
+Matheus Cunha,86,CAM
+C. Gakpo,85,RM
+L. Martínez,85,CDM
+E. Bardhi,80,CAM
+David Neres,83,CAM
+P. Estupiñán,85,LB
+M. Kean,87,ST
+Oriol Romeu,78,CDM
+Pepe Reina,78,GK
+Miguel Veloso,78,CM
+Juan Mata,78,CAM
+P. Kadeřábek,78,RWB
+R. Barkley,79,CAM
+D. Vida,78,CB
+F. Midtsjø,78,CM
+J. Svensson,78,RB
+D. Boyata,78,CB
+Negredo,78,ST
+Fransérgio,78,CM
+L. Dunk,79,CB
+A. Young,78,LWB
+A. Talavera,78,GK
+F. Quagliarella,78,CF
+B. Foster,78,GK
+Vitolo,78,LM
+H. Vanaken,78,CM
+S. Ortega,80,GK
+D. Sidibé,78,RB
+M. Doherty,78,RB
+Felipe Anderson,78,LM
+Aleix Vidal,78,RB
+Laguardia,78,CB
+Willian José,78,ST
+F. Caputo,78,ST
+Víctor Ruiz,78,CB
+S. Nzonzi,78,CDM
+E. Capoue,78,CM
+J. Hernández,78,ST
+R. Vormer,78,CM
+S. Coleman,78,RB
+M. Sissoko,78,CDM
+M. Darmian,78,RWB
+A. Kolarov,78,LB
+G. Kakuta,78,CAM
+D. Praet,78,CM
+C. Kouyaté,78,CB
+A. Dzyuba,78,ST
+A. Budimir,78,ST
+H. Seferović,78,ST
+G. Bonaventura,78,CM
+A. Westwood,78,CDM
+Pedro,78,CAM
+J. Baumgartlinger,78,CDM
+C. Smalling,78,CB
+M. Hitz,78,GK
+J. Pastore,78,CAM
+Kike García,78,ST
+Escudero,78,LB
+Jaume Costa,78,LB
+R. Soriano,78,CAM
+J. Vestergaard,79,CB
+De Frutos,84,RM
+Héctor Bellerín,81,RB
+D. Suárez,78,RB
+C. Baumgartner,84,CAM
+P. Rajković,83,GK
+A. Gouiri,85,CAM
+N. De la Cruz,84,CAM
+B. Soumaré,85,CDM
+M. Pessina,84,CAM
+N. Lang,85,CAM
+Pedro Neto,85,CAM
+D. Zagadou,84,CB
+A. Haidara,83,CM
+N. Zaniolo,87,CAM
+I. Konaté,86,CB
+A. Barák,81,CAM
+Luiz Felipe,85,CB
+Reinildo,79,LB
+Luis Milla,82,CM
+Júnior Moraes,78,ST
+E. Audero,81,GK
+M. Greenwood,89,CAM
+Jovane Cabral,86,CAM
+U. Račić,85,CM
+O. Kolář,82,GK
+Puado,85,ST
+Y. Fofana,83,CM
+R. Gravenberch,90,CAM
+D. Vlahović,85,ST
+F. Wirtz,89,CAM
+M. Caqueret,86,CM
+Carlos Neva,83,LB
+E. Camavinga,89,CM
+W. Fofana,86,CB
+Nuno Mendes,88,LWB
+R. Araujo,86,CB
+I. Sarr,86,RW
+Domingos Duarte,82,CB
+Y. Herrera,84,CDM
+Roberto Torres,78,RM
+Wellington Sabrão,78,RB
+Gerson Armão,78,LB
+A. Lunev,79,GK
+R. Saïss,78,CB
+B. Cristante,82,CM
+J. David,86,ST
+Moi Gómez,78,LM
+Vincente Dourado,78,CB
+P. Bamford,78,ST
+A. Younes,78,CAM
+S. Sosa,78,GK
+Denis Suárez,79,CAM
+Mário Rui,78,LB
+J. Brooks,79,CB
+Antônio Chiamuloira,78,CB
+Everticinho,78,RB
+R. Le Normand,83,CB
+T. Abraham,86,ST
+W. Endo,79,CDM
+J. Bijlow,86,GK
+J. Harrison,84,LM
+Y. Yazıcı,82,CAM
+A. Lafont,83,GK
+Brahim,86,CAM
+G. Montiel,84,RWB
+Albertinho Dutra,78,LW
+Prazeracinho,78,LW
+Matheus Bardeira,78,ST
+Falcao,78,ST
+Fredditinho,78,ST
+Arturo Inálcio,78,CM
+Guilson Paiva,78,RM
+L. Koscielny,78,CB
+D. Calabria,81,RB
+E. Lamela,78,CAM
+B. Bourigeaud,79,CM
+L. Ajorque,79,ST
+S. Gigot,81,CB
+Sequeira,78,LB
+Álex Moreno,78,LB
+L. Dubois,79,RB
+S. Fofana,80,CM
+Dani García,78,CDM
+Ayoze Pérez,78,RW
+L. Alario,78,ST
+C. Izquierdoz,78,CB
+A. Miranchuk,80,CAM
+M. Vecino,78,CM
+F. Fabra,78,LB
+Adama Traoré,81,RM
+Helton Leite,79,GK
+Puertas,78,RM
+J. Tah,82,CB
+T. Mings,80,CB
+Ricardo Esgaio,78,RWB
+N. Stanciu,78,CAM
+M. Dembélé,82,ST
+Carles Gil,78,CAM
+B. Santamaria,80,CDM
+R. Borré,81,ST
+Emerson,79,LB
+David García,81,CB
+Nuno Santos,79,LM
+E. Konsa,84,CB
+R. Bentancur,83,CDM
+M. Cash,83,RB
+Gelson Martins,79,RM
+A. Fulgini,82,CAM
+Daniel Podence,81,CAM
+K. Iheanacho,82,ST
+A. Diallo,82,CB
+G. Rodríguez,79,CDM
+D. Ćaleta-Car,83,CB
+O. Watkins,83,ST
+J. Bowen,83,LM
+C. Pavón,81,RM
+K. Toko Ekambi,78,LW
+Sergio Herrera,80,GK
+M. Pašalić,80,CM
+A. Mena,78,RM
+Jony,78,LM
+R. Karsdorp,79,RWB
+M. Friedrich,80,CB
+L. Olaza,79,LB
+J. McGinn,81,CM
+F. Grillitsch,81,CM
+Ángel,78,ST
+J. Hector,78,CDM
+A. Guardado,78,CDM
+Pedro León,78,CAM
+F. Caicedo,78,ST
+K. Boateng,78,CAM
+C. Ansaldi,78,LWB
+V. Moses,78,RM
+C. Bravo,78,GK
+Clinton Mata,78,RB
+N. Aké,81,CB
+J. Nsame,78,ST
+R. Ghezzal,78,RM
+R. Steffen,78,LM
+M. Halstenberg,78,CB
+A. Oukidja,78,GK
+V. Rosier,82,RWB
+E. Álvarez,83,CB
+E. Eze,83,CAM
+I. Sangaré,84,CB
+F. Müller,82,GK
+Z. Steffen,82,GK
+Salvi Sánchez,77,RM
+E. Reynoso,81,CAM
+J. Mæhle,82,RWB
+Gedson Fernandes,83,CAM
+A. Rossi,82,GK
+Marcão,81,CB
+E. Ndicka,84,CB
+Soares,77,ST
+C. Ünder,79,CAM
+Douglas Luiz,84,CDM
+F. Bustos,80,RM
+A. Claude-Maurice,83,CAM
+Melero,78,CM
+B. Romero,77,ST
+M. Marega,77,ST
+K. Walker-Peters,82,RB
+R. Holding,81,CB
+Pedraza,82,LB
+Matheus Pereira,81,CAM
+M. Rashica,82,RM
+Santi Mina,81,ST
+Diego Llorente,79,CB
+T. Malacia,82,LB
+M. Camara,82,CM
+M. Terrier,81,ST
+D. Szoboszlai,87,CAM
+Xeka,80,CM
+C. Stengs,84,CAM
+R. Koch,84,CB
+B. Verbič,77,LM
+M. Guendouzi,84,CM
+Rubén Duarte,82,LB
+G. Castrovilli,81,CAM
+B. Godfrey,85,CB
+M. Lanzini,77,CAM
+Víctor Díaz,77,RB
+P. Piatti,77,RM
+L. Montes,77,CM
+Alan Kardec,77,ST
+Luiz Gustavo,77,CDM
+O. Toprak,77,CB
+A Lan,77,ST
+Alex Teixeira,77,CAM
+Rochina,77,CAM
+B. Dost,77,ST
+M. Hasebe,77,CDM
+S. Rondón,77,ST
+Aridane,77,CB
+Cote,77,LB
+De Marcos,77,RB
+Oier,77,CDM
+S. Blanco,77,LM
+J. Kucka,77,CB
+L. Rodríguez,77,RB
+E. Cardona,77,CAM
+S. Jovetić,77,CF
+O. Kúdela,77,CB
+C. Trimmel,77,RWB
+D. Valeri,77,CAM
+Quaresma,77,RW
+A. McGregor,77,GK
+Diego López,77,GK
+Soldado,77,ST
+R. Sambueza,77,RM
+Jorge Molina,77,ST
+L. Biglia,77,CDM
+Ș. Radu,77,CB
