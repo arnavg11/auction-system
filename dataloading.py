@@ -2,13 +2,13 @@ import csv
 import mysql.connector as sql
 import threading as thr
 from time import time as t
-passw = "4rn4vGU!"
-do = sql.connect(host = "localhost", user = "root",password = passw)
-ci = do.cursor()
-ci.execute("create database if not exists fifadata")
-ci.execute("use fifadata")
-def maketable(filename,primary_key = "FullName",additional = ")"):
-    csvr = csv.reader(open(filename+".csv"))
+def maketable(filename,primary_key = "Name",additional = ")"):
+    passw = "deens"
+    do = sql.connect(host = "localhost", user = "root",password = passw)
+    ci = do.cursor()
+    ci.execute("create database if not exists fifadata")
+    ci.execute("use fifadata")
+    csvr = csv.reader(open(filename+".csv",encoding='utf8'))
     indexes = next(csvr)
     sample = next(csvr)
     s = f"create table if not exists {filename}("
@@ -24,15 +24,22 @@ def maketable(filename,primary_key = "FullName",additional = ")"):
         s+=","
     s = s[:-1]
     s+=additional
+    print(s)
     ci.execute(s)
     print(f"table {filename} successfully created")
+    do.commit()
 def loadData(filename):
+    passw = "deens"
+    do = sql.connect(host = "localhost", user = "root",password = passw)
+    ci = do.cursor()
+    ci.execute("use fifadata")
     ci.execute(f"delete from {filename}")
     ci.execute(f"desc {filename}")
     datatypes = []
     for i in ci:
         datatypes.append(i[1])
-    csvr = csv.reader(open(filename+".csv"))
+    print(datatypes)
+    csvr = csv.reader(open(filename+".csv",encoding = "utf8"))
     next(csvr)
     for i in csvr:
         s = f"insert into {filename} values("
@@ -58,8 +65,4 @@ def loadData(filename):
 p = t()
 maketable("players_fifa22")
 loadData("players_fifa22")
-maketable("players_22")
-loadData("players_22")
-maketable("teams_fifa22")
-loadData("teams_fifa22")
 print(t()-p)
