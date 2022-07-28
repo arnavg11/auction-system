@@ -213,7 +213,7 @@ class join():
             if comp.paired:
                 self.cont = False
                 print(self.ele)
-                destruct(self.ele+[self.lab])
+                destruct(self.ele+[self.lab,self.lab1])
                 distributeMoney(root)
                 break
 
