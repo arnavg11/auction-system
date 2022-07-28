@@ -1,8 +1,8 @@
 import mysql.connector as sql
 import random as rand
-passw = "4rn4vGU!"
+passw = "deens"
 auctioned = []
-def pickAuctionPlayer(filename = "players_fifa22", primary_key = "fullname",ovr = "overall",size = 50,influence = 2):
+def pickAuctionPlayer(filename = "players_fifa22", primary_key = "name",ovr = "potential",size = 50,influence = 2):
     do = sql.connect(host = "localhost", user = "root", password = passw, database = "fifadata")
     ci = do.cursor()
     ci.execute(f"desc {filename}")
@@ -11,12 +11,12 @@ def pickAuctionPlayer(filename = "players_fifa22", primary_key = "fullname",ovr 
         datatypes.append(i[0].lower())
 
     if len(auctioned)==0:
-        execstr = f"select*from {filename} order by overall desc limit {size}"
+        execstr = f"select*from {filename} order by potential desc limit {size}"
     else:
         execstr = f"select * from {filename} where "
         for i in auctioned:
             execstr+=f"not fullname = '{i}' and"
-        execstr = execstr[:-3]+ f"order by overall desc limit {size}"
+        execstr = execstr[:-3]+ f"order by potential desc limit {size}"
     ci.execute(execstr)
     p = list(ci)
     ovrList= []
@@ -40,9 +40,9 @@ def team_init(filename = "players_fifa22"):
     datatypes = []
     for i in ci:
         datatypes.append(i[0].lower())
-    formn = [1,4,3,3]
-    pos = [["GK"],["LB","RB","CB"],["CM","CAM","CDM","LM","RM"],["RW","ST","LW","CF"]]
-    for i in range(4):
+    formn = [3,3]
+    pos = [["LB","RB","CB","CDM","CM","GK"],["LM","RM","CAM","RW","ST","LW","CF"]]
+    for i in range(2):
         s = "select * from players_fifa22 where"
         for p in pos[i]:
             s+=f" bestposition = '{p}' or"
@@ -54,9 +54,9 @@ def team_init(filename = "players_fifa22"):
         pl.append(t)
     for j in pl:
         for i in j:
-            print(i["fullname"],i["overall"],end = "\t")
+            print(i["name"],i["potential"],end = "\t")
         print()
     
 
     return pl
-team_init()
+print(pickAuctionPlayer())
