@@ -5,6 +5,7 @@ import dataloading as dtl
 import auctionsys as actsys
 from networking import *
 import threading as thr
+passw = None
 bg= "black"
 fg = "white"
 def destruct(ele):
@@ -90,6 +91,8 @@ class enterUser:
             destruct(self.ele)
             try:
                 f= open("server_details.txt","r")
+                global passw
+                passw = f.read()
                 server_screen()
             except:
                 mysql_password(root)
@@ -132,6 +135,8 @@ class mysql_password:
          with open("server_details.txt","w") as user:
              mysql_pss = pss
              user.write(pss)
+         global passw
+         passw = f.read()
          connectServer()
      except mysql.errors.ProgrammingError:
          pass
@@ -169,9 +174,8 @@ class connectServer:
         self.enterbox.bind("<Return>",self.connServer)
         self.ele.append(self.enterbox)
     def load(self):
-        f = open("server_details.txt")
-        dtl.maketable("players_fifa22",f.read())
-        dtl.loadData("players_fifa22",f.read())
+        dtl.maketable("players_fifa22",passw)
+        dtl.loadData("players_fifa22",passw)
     def connServer(self,key):
         c = self.enterbox.get()
         print(c)
@@ -179,6 +183,7 @@ class connectServer:
             self.l1 = Label(self.root,text = "The server you entered may not be running",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         x = comp.setip(self.enterbox.get())
         if x:
+            self.t.join()
             destruct(self.ele)
             join(root)
         else:
@@ -250,8 +255,8 @@ class distributeMoney:
         self.root.geometry("700x400")
         self.ele = []
         if comp.user>comp.opp:
-            self.p2 = actsys.pickAuctionPlayer()       
-            self.p1 = actsys.pickAuctionPlayer()
+            self.p2 = actsys.pickAuctionPlayer(passw)       
+            self.p1 = actsys.pickAuctionPlayer(passw)
             comp.write(f"{comp.opp}-auctplrs:{p1},{p2}")
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.label1_ = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
@@ -278,7 +283,7 @@ class distributeMoney:
         else:
             self.l.config(text = "Please enter a valid integer between 0 and 1000")
     def _init__(self,root):
-        global comp
+        global comp,myTeam
         canvas = Canvas(root, width = 660, height = 400, bg = 'black',relief = 'sunken')
         canvas.place
         self.root = root
@@ -311,6 +316,7 @@ class distributeMoney:
         b2.place(x = 175, y = 320)
         b3.place(x = 377, y = 320)
         b4.place(x = 533, y = 320)
+        myTeam = actsys.team_init()
         self.ele = [self.canvas,self.label1,self.moneyLabel,self.label2,self.label3,self.label1_,self.label2_,self.label3_,b1,b2,b3,b4]
     def raisebid(self, auctplr):
         if money<100+self.bid[0]*(auctplr=="1" or self.label1.cget("fg")=="green")+self.bid[1]*(auctplr=="2" or self.label1_.cget("fg")=="green"):
@@ -357,7 +363,7 @@ class distributeMoney:
                 game(root)
         elif msg[0]=="auctplrs":
             self.p1,self.p2 = [evel(a) for a in msg[1].split(",")]
-                
+myTeam = None
 class game:
     def __init__(self,master):
      self.master=master
