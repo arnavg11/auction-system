@@ -1,6 +1,8 @@
 from tkinter import *
 import time
-#import mysql.connector as mysql
+import mysql.connector as mysql
+import dataloading as dtl
+import auctionsys as actsys
 from networking import *
 import threading as thr
 bg= "black"
@@ -12,7 +14,6 @@ def destruct(ele):
 
 otherPlayer = None
 root = Tk()
-
 class serverOrClient:
     def __init__(self,master = root):
          self.ele = []
@@ -87,7 +88,11 @@ class enterUser:
             comp.user = c
             self.enterbox.delete(0,END)
             destruct(self.ele)
-            connectServer(root)
+            try:
+                f= open("server_details.txt","r")
+                server_screen()
+            except:
+                mysql_password(root)
             
     def checkName(self,key):
             if ord(key.char) == 13:
@@ -127,7 +132,7 @@ class mysql_password:
          with open("server_details.txt","w") as user:
              mysql_pss = pss
              user.write(pss)
-         server_screen()
+         connectServer()
      except mysql.errors.ProgrammingError:
          pass
 
@@ -151,6 +156,8 @@ class server_screen:
         del self
 class connectServer:
     def __init__(self,root = root):
+        self.t = thr.Thread(target = self.load)
+        self.t.start()
         self.root = root
         self.root.configure(bg = "black")
         self.root.geometry("700x400")
@@ -161,6 +168,10 @@ class connectServer:
         self.enterbox.pack()
         self.enterbox.bind("<Return>",self.connServer)
         self.ele.append(self.enterbox)
+    def load(self):
+        f = open("server_details.txt")
+        dtl.maketable("players_fifa22",f.read())
+        dtl.loadData("players_fifa22",f.read())
     def connServer(self,key):
         c = self.enterbox.get()
         print(c)
@@ -231,12 +242,17 @@ moneyToTeam = None
 money = 1000
 class distributeMoney:
     def __init__(self,root):
+        global comp
         self.bid = [0,0]
         self.bidDone = [False,False]
         self.root=root
         self.root.configure(bg = "black")
         self.root.geometry("700x400")
         self.ele = []
+        if comp.user>comp.opp:
+            self.p2 = actsys.pickAuctionPlayer()       
+            self.p1 = actsys.pickAuctionPlayer()
+            comp.write(f"{comp.opp}-auctplrs:{p1},{p2}")
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.label1_ = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.ele.append(Label(self.root,text = "how much of your money do you want to invest in your base team?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
@@ -272,15 +288,15 @@ class distributeMoney:
         root.title("FIFA")
         root.resizable(False,False)
         root.config(bg = 'black')
-        self.label2 = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg="white")
-        self.label3 = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
+        self.label2 = Label(root,text = "name:"+self.p1[0],bg = 'black',font=("Arial", 20),fg="white")
+        self.label3 = Label(root,text = "rating:"+self.p1[1],bg = 'black',font=("Arial", 20),fg = "white")
 
         self.label1.place(x = 30,y = 90)
         self.label2.place(x = 30,y = 150)
         self.label3.place(x = 30,y = 210)
 
-        self.label2_ = Label(root,text = "stamina:",bg = 'black',font=("Arial", 20),fg = "white")
-        self.label3_ = Label(root,text = "name:",bg = 'black',font=("Arial", 20),fg = "white")
+        self.label2_ = Label(root,text = "stamina:"+self.p2[0],bg = 'black',font=("Arial", 20),fg = "white")
+        self.label3_ = Label(root,text = "name:"+self.p2[1],bg = 'black',font=("Arial", 20),fg = "white")
 
         self.label1_.place(x = 390,y = 90)
         self.label2_.place(x = 390,y = 150)
@@ -339,6 +355,8 @@ class distributeMoney:
             if self.bidDone[0] and self.bidDone[1]:
                 destruct(self.ele)
                 game(root)
+        elif msg[0]=="auctplrs":
+            self.p1,self.p2 = [evel(a) for a in msg[1].split(",")]
                 
 class game:
     def __init__(self,master):
