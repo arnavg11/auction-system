@@ -2,8 +2,7 @@ import csv
 import mysql.connector as sql
 import threading as thr
 from time import time as t
-def maketable(filename,primary_key = "Name",additional = ")"):
-    passw = "deens"
+def maketable(filename,passw,primary_key = "Name",additional = ")"):
     do = sql.connect(host = "localhost", user = "root",password = passw)
     ci = do.cursor()
     ci.execute("create database if not exists fifadata")
@@ -28,8 +27,7 @@ def maketable(filename,primary_key = "Name",additional = ")"):
     ci.execute(s)
     print(f"table {filename} successfully created")
     do.commit()
-def loadData(filename):
-    passw = "deens"
+def loadData(filename,passw):
     do = sql.connect(host = "localhost", user = "root",password = passw)
     ci = do.cursor()
     ci.execute("use fifadata")
@@ -62,7 +60,3 @@ def loadData(filename):
             pass
         do.commit()
     print(f"data loaded into {filename}")
-p = t()
-maketable("players_fifa22")
-loadData("players_fifa22")
-print(t()-p)
