@@ -1,7 +1,6 @@
 import mysql.connector as sql
 import random as rand
-passw = "deens"
-def pickAuctionPlayer(filename = "players_fifa22", primary_key = "name",ovr = "potential",size = 50,influence = 2):
+def pickAuctionPlayer(passw,filename = "players_fifa22", primary_key = "name",ovr = "potential",size = 50,influence = 2):
     do = sql.connect(host = "localhost", user = "root", password = passw, database = "fifadata")
     ci = do.cursor()
     ci.execute(f"desc {filename}")
@@ -18,37 +17,44 @@ def pickAuctionPlayer(filename = "players_fifa22", primary_key = "name",ovr = "p
         if pick-ovrList[i]>=0:
             pick-=ovrList[i]
         else:
+            print(i)
             return p[i]
+    print(-1)
     return p[-1]
-def team_init(luck,filename = "players_fifa22"):
+def team_init(luck,passw,filename = "players_fifa22"):
     pl = []
     op = []
     do = sql.connect(host = "localhost", user = "root", password = passw, database = "fifadata")
     ci = do.cursor()
-    ci.execute(f"desc {filename}")
-    datatypes = []
-    for i in ci:
-        datatypes.append(i[0].lower())
     formn = [3,3]
     pos = [["LB","RB","CB","CDM","CM","GK"],["LM","RM","CAM","RW","ST","LW","CF"]]
-    for i in range(2):
+    for k in range(len(formn)):
         s = "select * from players_fifa22 where"
-        for p in pos[i]:
+        for p in pos[k]:
             s+=f" bestposition = '{p}' or"
         s = s[:-2]+f"order by rand() limit 50"
         ci.execute(s)
         temp=[]
-        pool = 0
-        for p in ci:
-            temp.append( p)
-            pool+=i[1]
-        num = rand.random()*(pool**luck)
-        for i in 
-        pl.append(t)
+        line = []
+        for j in range(formn[k]):
+            pool = 0
+            for p in ci:
+                temp.append( p)
+                pool+=p[1]**luck
+            num = rand.random()*pool
+            for i in range(len(temp)):
+                if num-temp[i][1]**luck>=0:
+                    num-=temp[i][1]**luck
+                else:
+                    print(i)
+                    t=temp.pop(i)
+                    break
+            else:
+                t = temp.pop(len(temp)-1)
+            line.append(t)
+        pl.append(line)
     for j in pl:
         for i in j:
             print(i[0],i[1],end = "\t")
         print()
     return pl
-print(team_init())
-
