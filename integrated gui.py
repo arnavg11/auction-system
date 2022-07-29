@@ -283,7 +283,7 @@ class distributeMoney:
         else:
             self.l.config(text = "Please enter a valid integer between 0 and 1000")
     def _init__(self,root):
-        global comp,myTeam
+        global comp
         canvas = Canvas(root, width = 660, height = 400, bg = 'black',relief = 'sunken')
         canvas.place
         self.root = root
@@ -316,7 +316,6 @@ class distributeMoney:
         b2.place(x = 175, y = 320)
         b3.place(x = 377, y = 320)
         b4.place(x = 533, y = 320)
-        myTeam = actsys.team_init()
         self.ele = [self.canvas,self.label1,self.moneyLabel,self.label2,self.label3,self.label1_,self.label2_,self.label3_,b1,b2,b3,b4]
     def raisebid(self, auctplr):
         if money<100+self.bid[0]*(auctplr=="1" or self.label1.cget("fg")=="green")+self.bid[1]*(auctplr=="2" or self.label1_.cget("fg")=="green"):
@@ -363,7 +362,6 @@ class distributeMoney:
                 game(root)
         elif msg[0]=="auctplrs":
             self.p1,self.p2 = [evel(a) for a in msg[1].split(",")]
-myTeam = None
 class game:
     def __init__(self,master):
      self.master=master
