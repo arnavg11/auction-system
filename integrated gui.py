@@ -93,7 +93,7 @@ class enterUser:
                 f= open("server_details.txt","r")
                 global passw
                 passw = f.read()
-                server_screen()
+                connectServer()
             except:
                 mysql_password(root)
             
@@ -136,7 +136,7 @@ class mysql_password:
              mysql_pss = pss
              user.write(pss)
          global passw
-         passw = f.read()
+         passw = pss
          connectServer()
      except mysql.errors.ProgrammingError:
          pass
@@ -257,7 +257,7 @@ class distributeMoney:
         if comp.user>comp.opp:
             self.p2 = actsys.pickAuctionPlayer(passw)       
             self.p1 = actsys.pickAuctionPlayer(passw)
-            comp.write(f"{comp.opp}-auctplrs:{p1},{p2}")
+            comp.write(f"{comp.opp}-auctplrs:{self.p1},{self.p2}")
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.label1_ = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.ele.append(Label(self.root,text = "how much of your money do you want to invest in your base team?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
@@ -294,14 +294,14 @@ class distributeMoney:
         root.resizable(False,False)
         root.config(bg = 'black')
         self.label2 = Label(root,text = "name:"+self.p1[0],bg = 'black',font=("Arial", 20),fg="white")
-        self.label3 = Label(root,text = "rating:"+self.p1[1],bg = 'black',font=("Arial", 20),fg = "white")
+        self.label3 = Label(root,text = "rating:"+str(self.p1[1]),bg = 'black',font=("Arial", 20),fg = "white")
 
         self.label1.place(x = 30,y = 90)
         self.label2.place(x = 30,y = 150)
         self.label3.place(x = 30,y = 210)
 
-        self.label2_ = Label(root,text = "stamina:"+self.p2[0],bg = 'black',font=("Arial", 20),fg = "white")
-        self.label3_ = Label(root,text = "name:"+self.p2[1],bg = 'black',font=("Arial", 20),fg = "white")
+        self.label2_ = Label(root,text = "name:"+self.p2[0],bg = 'black',font=("Arial", 20),fg = "white")
+        self.label3_ = Label(root,text = "rating:"+str(self.p2[1]),bg = 'black',font=("Arial", 20),fg = "white")
 
         self.label1_.place(x = 390,y = 90)
         self.label2_.place(x = 390,y = 150)
@@ -324,8 +324,9 @@ class distributeMoney:
         print(f"{comp.opp}-raisebid:{auctplr}")
         self.evnt([f"raisebid:{auctplr}"],True)
     def back(self,plr):
-        if (self.label1.cget("fg")!="red" and plr == "1") or (self.label1_.cget("fg")!="red" and plr == "2"):
+        if (self.label1.cget("fg")=="red" and plr == "1") or (self.label1_.cget("fg")=="red" and plr == "2"):
             return
+        print(self.label1.cget("fg"))
         comp.write(comp.opp+"-back:"+str(plr))
         self.evnt(("back:"+str(plr)).split("-"),True)
     def evnt(self,msg,msgsentbyself = False):
@@ -361,7 +362,7 @@ class distributeMoney:
                 destruct(self.ele)
                 game(root)
         elif msg[0]=="auctplrs":
-            self.p1,self.p2 = [evel(a) for a in msg[1].split(",")]
+            self.p1,self.p2 = eval(msg[1])
 class game:
     def __init__(self,master):
      self.master=master
