@@ -110,7 +110,7 @@ class Client:
         self.eventhand = None
     def read(self):
         while True:
-                x = self.socket.recv(4096).decode("ascii").split("-")
+                x = self.socket.recv(4096).decode("utf-8").split("-")
                 print(x)
                 if x[0] == "players":
                     self.servconn = eval(x[1].lstrip("dict_keys"))
@@ -136,5 +136,4 @@ class Client:
             return True
         except:
             return False
-         
          
