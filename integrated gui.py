@@ -255,7 +255,7 @@ class distributeMoney:
         self.root.geometry("700x400")
         self.ele = []
         if comp.user>comp.opp:
-            self.p2 = actsys.pickAuctionPlayer(passw)       
+            self.p2 = actsys.pickAuctionPlayer(passw)   #name,ovr,pos
             self.p1 = actsys.pickAuctionPlayer(passw)
             comp.write(f"{comp.opp}-auctplrs:{self.p1},{self.p2}")
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
@@ -359,12 +359,35 @@ class distributeMoney:
                 self.label1_.configure(text = "bid:"+str(self.bid[1])+"(confirmed)")
                 self.bidDone[1] = True
             if self.bidDone[0] and self.bidDone[1]:
+                print(moneyToTeam/2000+1)
+                team = actsys.team_init(moneyToTeam/500+1,passw)
+                if self.label1.cget("fg")=="green":
+                    if self.p1[2] in ["LB","RB","CB","CDM","CM","GK"]:
+                        mode = 0
+                    else:
+                        mode = 1
+                    lowest = [None,0]
+                    for i in range(3):
+                        if lowest[1]<team[mode][i][1]:
+                            lowest = [i,team[mode][i][1]]
+                    team[mode][lowest[0]] = self.p1
+                if self.label1_.cget("fg")=="green":
+                    if self.p2[2] in ["LB","RB","CB","CDM","CM","GK"]:
+                        mode = 0
+                    else:
+                        mode = 1
+                    lowest = [None,0]
+                    for i in range(3):
+                        if lowest[1]<team[mode][i][1]:
+                            lowest = [i,team[mode][i][1]]
+                    team[mode][lowest[0]] = self.p1
+                print(team)
                 destruct(self.ele)
-                game(root)
+                game(root,team)
         elif msg[0]=="auctplrs":
             self.p1,self.p2 = eval(msg[1])
 class game:
-    def __init__(self,master):
+    def __init__(self,master,team):
      self.master=master
      self.master.geometry("700x400")
      self.root.configure(bg = "black")
