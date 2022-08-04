@@ -4,6 +4,7 @@ import mysql.connector as mysql
 import dataloading as dtl
 import auctionsys as actsys
 from networking import *
+import tkinter.messagebox
 import threading as thr
 passw = None
 bg= "black"
@@ -246,11 +247,17 @@ class message:
 moneyToTeam = None
 money = 1000
 class distributeMoney:
+    def popup(self):
+        tkinter.messagebox.showinfo('info','''Team investment:
+    Out of 50 randomly selected players, the base team of the user is made by ''')
     def __init__(self,root):
         global comp
+        comp.eventhand = self.evnt
         self.bid = [0,0]
         self.bidDone = [False,False]
         self.root=root
+        self.b = Button(root,command = self.popup, text= 'i',padx = 5,pady = 5,borderwidth = 0,width = 2)
+        self.b.place(x=650,y=30)
         self.root.configure(bg = "black")
         self.root.geometry("700x400")
         self.ele = []
@@ -269,7 +276,6 @@ class distributeMoney:
         self.l = Label(self.root,font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         self.l.pack()
         self.ele.append(self.l)
-        comp.eventhand = self.evnt
     def sub(self,key):
         if ord(key.char)!=13:
             return
