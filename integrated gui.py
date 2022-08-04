@@ -249,7 +249,18 @@ money = 1000
 class distributeMoney:
     def popup(self):
         tkinter.messagebox.showinfo('info','''Team investment:
-    Out of 50 randomly selected players, the base team of the user is made by ''')
+    Out of 50 randomly selected players, the base team of the user is made by prioritizing higher value players and the strength of this priority is determined by how much money the user decides to put into forminghis baseteam.
+    
+Auction players:
+    These are high ranked players chosen so that users can battle for them witth the remainder of their money.
+
+Auction system:
+    Click on raise bid by 100 if you want to increase the bid for a player.
+    The player's name should turn green if you have the highest bid for that player and red if your opponent has the highest bid.
+    If you want to back out of the bid for a player, you can only do so if your opponent has the highest bid.
+    You cannot set a bid for a player if the total bid amount crosses the money you have left.
+    
+    ''')
     def __init__(self,root):
         global comp
         comp.eventhand = self.evnt
