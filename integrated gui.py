@@ -1,5 +1,4 @@
 from tkinter import *
-import time
 import mysql.connector as mysql
 import dataloading as dtl
 import auctionsys as actsys
