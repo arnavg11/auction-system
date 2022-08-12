@@ -1,7 +1,6 @@
 import csv
 import mysql.connector as sql
 import threading as thr
-from time import time as t
 def maketable(filename,passw,primary_key = "Name",additional = ")"):
     do = sql.connect(host = "localhost", user = "root",password = passw)
     ci = do.cursor()
