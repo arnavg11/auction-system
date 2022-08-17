@@ -334,13 +334,13 @@ Auction system:
         b4.place(x = 533, y = 320)
         self.ele = [self.canvas,self.label1,self.moneyLabel,self.label2,self.label3,self.label1_,self.label2_,self.label3_,b1,b2,b3,b4]
     def raisebid(self, auctplr):
-        if money<100+self.bid[0]*(auctplr=="1" or self.label1.cget("fg")=="green")+self.bid[1]*(auctplr=="2" or self.label1_.cget("fg")=="green"):
+        if money<100+self.bid[0]*(auctplr==1 or self.label1.cget("fg")=="green")+self.bid[1]*(auctplr==2 or self.label1_.cget("fg")=="green"):
             return
         comp.write(f"{comp.opp}-raisebid:{auctplr}")
         print(f"{comp.opp}-raisebid:{auctplr}")
         self.evnt([f"raisebid:{auctplr}"],True)
     def back(self,plr):
-        if (self.label1.cget("fg")=="red" and plr == "1") or (self.label1_.cget("fg")=="red" and plr == "2"):
+        if (self.label1.cget("fg")!="red" and plr == 1) or (self.label1_.cget("fg")!="red" and plr == 2):
             return
         print(self.label1.cget("fg"))
         comp.write(comp.opp+"-back:"+str(plr))
