@@ -227,6 +227,7 @@ class join():
     def transition(self):
         while True:
             if comp.paired:
+                comp.eventhand= evnt
                 self.cont = False
                 print(self.ele)
                 destruct(self.ele+[self.lab,self.lab1])
@@ -263,7 +264,6 @@ Auction system:
     def __init__(self,root):
         global comp
         comp.eventhand = self.evnt
-        self.bid = [0,0]
         self.bidDone = [False,False]
         self.root=root
         self.b = Button(root,command = self.popup, text= 'i',padx = 5,pady = 5,borderwidth = 0,width = 2)
@@ -271,10 +271,6 @@ Auction system:
         self.root.configure(bg = "black")
         self.root.geometry("700x400")
         self.ele = []
-        if comp.user>comp.opp:
-            self.p2 = actsys.pickAuctionPlayer(passw)   #name,ovr,pos
-            self.p1 = actsys.pickAuctionPlayer(passw)
-            comp.write(f"{comp.opp}-auctplrs:{self.p1},{self.p2}")
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.label1_ = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.ele.append(Label(self.root,text = "how much of your money do you want to invest in your base team?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
@@ -286,6 +282,12 @@ Auction system:
         self.l = Label(self.root,font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         self.l.pack()
         self.ele.append(self.l)
+        if comp.user>comp.opp:
+            self.p2 = actsys.pickAuctionPlayer(passw)   #name,ovr,pos
+            self.p1 = actsys.pickAuctionPlayer(passw)
+            comp.write(f"{comp.opp}-auctplrs:{self.p1},{self.p2}")
+        else:
+            self.p1,self.p2
     def sub(self,key):
         if ord(key.char)!=13:
             return
@@ -336,7 +338,7 @@ Auction system:
     def raisebid(self, auctplr):
         if money<100+self.bid[0]*(auctplr==1 or self.label1.cget("fg")=="green")+self.bid[1]*(auctplr==2 or self.label1_.cget("fg")=="green"):
             return
-        comp.write(f"{comp.opp}-raisebid:{auctplr}")
+        comp.write(f"{comp.opp}-raisebid:{auctplr}:")
         print(f"{comp.opp}-raisebid:{auctplr}")
         self.evnt([f"raisebid:{auctplr}"],True)
     def back(self,plr):
@@ -400,8 +402,27 @@ Auction system:
                 print(team)
                 destruct(self.ele)
                 game(root,team)
-        elif msg[0]=="auctplrs":
-            self.p1,self.p2 = eval(msg[1])
+
+bid = [0,0]
+p= None
+def evnt(msg):
+        msg = msg[0].split()
+        if msg[0]=="auctplrs":
+            p = eval(msg[1])
+        if msg[0] == "raisebid":
+            if msg[1]=="1":
+                bid[0]+=100
+                if msgsentbyself:
+                    self.label1.configure(fg = "green")
+                else:
+                    self.label1.configure(fg = "red")
+            elif (not self.bidDone[1]) and msg[1]=="2":
+                self.bid[1]+=100
+                self.label1_.configure(text = "bid:"+str(self.bid[1]))
+                if msgsentbyself:
+                    self.label1_.configure(fg = "green")
+                else:
+                    self.label1_.configure(fg = "red")
 class game:
     def __init__(self,master,team):
      self.master=master
