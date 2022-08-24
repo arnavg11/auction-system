@@ -5,6 +5,7 @@ import auctionsys as actsys
 from networking import *
 import tkinter.messagebox
 import threading as thr
+import time
 passw = None
 bg= "black"
 fg = "white"
@@ -285,6 +286,7 @@ Auction system:
         if comp.user>comp.opp:
             self.p2 = actsys.pickAuctionPlayer(passw)   #name,ovr,pos
             self.p1 = actsys.pickAuctionPlayer(passw)
+            time.sleep(.2)
             comp.write(f"{comp.opp}-auctplrs:{self.p1},{self.p2}")
         else:
             self.p1,self.p2
