@@ -6,6 +6,9 @@ from networking import *
 import tkinter.messagebox
 import threading as thr
 import time
+from players import team_creation
+from game import game_working
+
 passw = None
 bg= "black"
 fg = "white"
@@ -257,7 +260,6 @@ class distributeMoney:
     
 Auction players:
     These are high ranked players chosen so that users can battle for them witth the remainder of their money.
-
 Auction system:
     Click on raise bid by 100 if you want to increase the bid for a player.
     The player's name should turn green if you have the highest bid for that player and red if your opponent has the highest bid.
@@ -402,34 +404,50 @@ Auction system:
                     for i in range(3):
                         if lowest[1]<team[mode][i][1]:
                             lowest = [i,team[mode][i][1]]
-                    team[mode][lowest[0]] = self.p1
+                    team[mode][lowest[0]] = self.p2
                 print(team)
                 destruct(self.ele)
-                game(root,team)
+                gamework(root,team)
         elif msg[0]=="auctplrs":
             self.p1,self.p2 = eval(msg[1])
-class game:
+
+class gamework:
+
     def __init__(self,master,team):
-     self.master=master
-     self.master.geometry("700x400")
-     self.root.configure(bg = "black")
-     self.button1 = Button(self.master,text="GAME",padx=130,pady=50,borderwidth=0)
-     self.button2 = Button(self.master,text="AUCTION",padx=110,pady=50,borderwidth=0)
-     self.button3 = Button(self.master,text="CARDS",padx=127,pady=50,borderwidth=0)
-     self.button4 = Button(self.master,text="TEAM MANAGEMENT",padx=74,pady=50,borderwidth=0)
-     self.button4.place(x=370,y=255)
+        self.team_final = []
+        comp.eventhand = self.event_handler
 
-     self.button1.place(x = 15,y = 100)
-     self.button2.place(x = 370,y=100)
-     self.button3.place(x = 15,y = 255)
-     
-     
+        team[0].extend(team[1])
+        team_new = team[0]
+        
+        print()
+        print("see:",team_new)
+        print()
 
-     self.quit=Button(self.master,text="<--",command=self.close_window,borderwidth=0)
+        print(comp.user)
+        team_new.insert(0,comp.user)
+        self.team_final.append(team_new)
+        self.send(f"{team_new}")
 
-     self.quit.place(x=15,y=10)
+    def event_handler(self, event):
+        value = eval(event[0])
+        opp_team = value
+        self.team_final.append(opp_team)
+        print("final team:",self.team_final)
+        self.player_moves()
+        game_start(root)
 
-    def close_window(self):
-     self.master.destroy()
-    
+    def player_moves(self):
+        f = team_creation(root,comp,self.team_final)
+
+    def send(self,msg):
+        print("send",msg)
+        comp.write(f"{comp.opp}-{msg}")
+
+class game_start:
+    def __init__(self,root):
+        g = game_working(root,comp)
+   
 serverOrClient(root)
+
+           

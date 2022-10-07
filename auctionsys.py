@@ -40,7 +40,7 @@ def team_init(luck,passw,filename = "players_fifa22"):
             pool = 0
             for p in ci:
                 temp.append( p)
-                pool+=int(p[1])**luck
+                pool+=p[1]**luck
             num = rand.random()*pool
             for i in range(len(temp)):
                 if num-temp[i][1]**luck>=0:
