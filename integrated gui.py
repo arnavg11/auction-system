@@ -281,8 +281,8 @@ Auction system:
         if comp.user>comp.opp:
             self.p2 = actsys.pickAuctionPlayer(passw)   #name,ovr,pos
             self.p1 = actsys.pickAuctionPlayer(passw)
-            time.sleep(.2)
             comp.write(f"{comp.opp}-auctplrs:{self.p1},{self.p2}")
+        time.sleep(.2)
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.label1_ = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.ele.append(Label(self.root,text = "how much of your money do you want to invest in your base team?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
