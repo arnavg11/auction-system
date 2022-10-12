@@ -10,14 +10,20 @@ import tkinter as tk
 
 myip = getIP()
 
-
 def read(x,comp):
  try:
     while True:
         msg = x.recv(4096).decode().split("-")
         print(msg)
         if msg[0] == "::name":
+            if msg[1] in comp.conn:
+                msg[1]+="#1"
+                while msg[1] in comp.conn:
+                    msg[1] = msg[1][:-1]+str(int(msg[1][:-1])+1)
+                    
+                    
             u = msg[1]
+            x.send(msg[1])
             comp.pairList[u] = []
             comp.conn[u] = x
             print(420)
