@@ -10,6 +10,7 @@ import tkinter as tk
 
 myip = getIP()
 
+
 def read(x,comp):
  try:
     while True:
@@ -19,13 +20,12 @@ def read(x,comp):
             if msg[1] in comp.conn:
                 msg[1]+="#1"
                 while msg[1] in comp.conn:
-                    msg[1] = msg[1][:-1]+str(int(msg[1][:-1])+1)
-                    
-                    
+                    msg[1] = msg[1][:-1]+str(int(msg[1][-1])+1)
+            print(msg[1])
             u = msg[1]
-            x.send(msg[1])
             comp.pairList[u] = []
             comp.conn[u] = x
+            comp.write(f"::username-{u}",u,True)
             print(420)
             comp.sendall(list(comp.pairList.keys()))
         elif msg[0] == "::cnct":
@@ -98,6 +98,7 @@ class Server:
             t.start()
 
     def write(self, msg,c,user=False):
+        print(self.conn)
         if user: c = self.conn[c]
         print(type(msg.encode()))
         c.send(msg.encode())
@@ -121,9 +122,13 @@ class Client:
                 if x[0] == "players":
                     self.servconn = eval(x[1].lstrip("dict_keys"))
                     print(self.servconn)
+                elif x[0]=="::username":
+                    self.user = x[1]
                 elif x[0]=="auth" and x[1]=="pair OK":
                     self.paired = True
                     self.opp = x[2]
+                elif x[0]=="username":
+                    self.user = x[1]
                 else:self.eventhand(x)#to be imported
 
     def write(self, msg):

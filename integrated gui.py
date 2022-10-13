@@ -208,10 +208,12 @@ class join():
         t.start()
         t2 = thr.Thread(target=self.transition)
         t2.start()
-        self.lab1 = Label(root,text = f"your username is: {comp.user}",bg = 'black',font=("Arial", 13),fg = "white")
         self.lab = Label(self.root,text = "Pick who you want to play with:",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" )
         self.lab.pack()
+        time.sleep(.1)
+        self.lab1 = Label(root,text = f"your username is: {comp.user}",bg = 'black',font=("Arial", 13),fg = "white")
         self.lab1.pack()
+        
     def updateList(self):
         while True:
             if not self.cont:
@@ -281,6 +283,7 @@ Auction system:
         if comp.user>comp.opp:
             self.p2 = actsys.pickAuctionPlayer(passw)   #name,ovr,pos
             self.p1 = actsys.pickAuctionPlayer(passw)
+            
             comp.write(f"{comp.opp}-auctplrs:{self.p1},{self.p2}")
         time.sleep(.2)
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
