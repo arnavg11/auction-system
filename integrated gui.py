@@ -8,6 +8,7 @@ import threading as thr
 import time
 from players import team_creation
 from game import game_working
+from PIL import Image,ImageTk
 
 passw = None
 bg= "black"
@@ -19,6 +20,45 @@ def destruct(ele):
 
 otherPlayer = None
 root = Tk()
+class start:
+    def popup(self):
+        tkinter.messagebox.showinfo('info','''Team investment:
+    Out of 50 randomly selected players, the base team of the user is made by prioritizing higher value players and the strength of this priority is determined by how much money the user decides to put into forminghis baseteam.
+    
+Auction players:
+    These are high ranked players chosen so that users can battle for them witth the remainder of their money.
+Auction system:
+    Click on raise bid by 100 if you want to increase the bid for a player.
+    The player's name should turn green if you have the highest bid for that player and red if your opponent has the highest bid.
+    If you want to back out of the bid for a player, you can only do so if your opponent has the highest bid.
+    You cannot set a bid for a player if the total bid amount crosses the money you have left.
+    
+    ''')
+    def __init__(self,root):
+        self.root=root
+        d = [1200,750]
+        self.root.geometry(f"{d[0]}x{d[1]}")
+        self.root.resizable(False,False)
+        img = Image.open("start.png")
+        resize = img.resize((d[0],d[1]), Image.ANTIALIAS)
+        image= ImageTk.PhotoImage(resize)
+        self.img = Label(root, image=image)
+        self.img.place(x=0,y=0)
+        b = Button(root,command = self.popup, text= 'i',padx = 5,pady = 5,borderwidth = 0,width = 2)
+        b.place(x=650*d[0]/700,y=d[1]*30/400)
+        
+        self.ele = [b,self.img]
+        
+        b1 = Button(root,command = self.next, text= 'proceed',padx = 5,pady = 5,borderwidth = 0)
+        b1.place(x=d[0]*300/700,y=d[1]*350/400)
+        self.ele.append(b1)
+        self.l = Label(self.root,text = "FIFA PRO",font = "Helvetica",padx = 10,pady = 10,foreground = "white",background = "black")
+        self.l.place(x=d[0]*300/700,y=d[1]*10/400)
+        self.ele.append(self.l)
+        root.mainloop()
+    def next(self):
+        destruct(self.ele)
+        serverOrClient()
 class serverOrClient:
     def __init__(self,master = root):
          self.ele = []
@@ -451,6 +491,6 @@ class game_start:
     def __init__(self,root):
         g = game_working(root,comp)
    
-serverOrClient(root)
+start(root)
 
            
