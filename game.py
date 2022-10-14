@@ -351,4 +351,248 @@ class game_working:
                             print("opp damage:",opp_total_health)
                             print("damage sent",damage)
                             damage_amo = (damage/opp_total_health)*386
-                            print
+                            print("damage amount:",damage_amo)
+           
+            self.x1 -= 30      
+            self.x1 -= damage_amo
+            print("check",self.x1)
+            print()
+            self.x1 += 30
+
+            if self.x1 < 0:
+                self.x1 = 0
+
+            if self.x1 <= 30:
+                self.send(f'damage:{self.x1}')
+                print("sending")
+                #canvas.create_rectangle(30,480,416,505,fill ='black',outline = 'white')
+                self.canvas.create_rectangle(30,10,416,35,fill ='black',outline = 'white')
+                self.x1 = 416
+
+            else:  
+                self.send(f'damage:{self.x1}')
+                print("sending")
+                #canvas.create_rectangle(x1,480.5,x2-1,504,fill = 'black',outline = 'black')
+                self.canvas.create_rectangle(self.x1,11,415,34,fill ='black',outline = 'black')
+
+        """if damage >= 100:
+            x__ = self.x_
+            self.x_ -= (70/100) * 386
+
+            if self.x_ <= 30:
+                self.canvas.create_rectangle(30,465,416,475,fill ='black',outline = 'white')
+
+            else:
+                self.canvas.create_rectangle(self.x_,466,x__ - 1,474,fill ='black',outline = 'black')
+
+        elif damage >= 65:
+            x__ = self.x_
+            self.x_ -= (40/100) * 386
+
+            if self.x_ <= 30:
+                self.canvas.create_rectangle(30,465,416,475,fill ='black',outline = 'white')
+
+            else:
+                self.canvas.create_rectangle(self.x_,466,x__ - 1,474,fill ='black',outline = 'black')
+
+        elif damage >= 40:
+            x__ = self.x_
+            self.x_ -= (20/100) * 386
+
+            if self.x_ <= 30:
+                self.canvas.create_rectangle(30,465,416,475,fill ='black',outline = 'white')
+
+            else:
+                self.canvas.create_rectangle(self.x_,466,x__ - 1,474,fill ='black',outline = 'black') """  
+       
+   
+    def send(self,msg):
+        print("send",msg)
+        self.comp.write(f"{self.comp.opp}-{msg}")
+
+    def change_info(self,selected_name):
+
+        with open("team.dat","rb") as file:
+            l =[]
+       
+            t = pickle.load(file)
+            for i in range(len(t)):
+                if t[i][0] == self.comp.user:
+                    for j in range(1,len(t[i])):
+                        if t[i][j][0].lower() == selected_name.lower():
+                            self.playing.append(selected_name)
+
+                            self.b1.config(text = t[i][j][2][0])
+                            self.b2.config(text = t[i][j][3][0])
+                            self.b3.config(text = t[i][j][4][0])
+
+                            new_damage1 = t[i][j][2][1]
+                            new_damage2 = t[i][j][3][1]
+                            new_damage3 = t[i][j][4][1]
+
+                            self.b1.config(command = lambda: self.health_bar(new_damage1))
+                            self.b2.config(command = lambda: self.health_bar(new_damage2))
+                            self.b3.config(command = lambda: self.health_bar(new_damage3))
+                       
+                            self.send(f'opp_name_change:{selected_name}')
+                            self.canvas.create_rectangle(30,480,416,505,fill ='green',outline = 'white')
+                            self.card(selected_name)
+
+        self.f_players.delete(0,END)
+        for item in self.remaining:
+            self.f_players.insert(END,item)
+
+        self.b1['state'] = NORMAL
+        self.b2['state'] = NORMAL
+        self.b3['state'] = NORMAL
+        self.pop.destroy()
+
+    def change_player(self):
+        #global pop
+        self.pop = Toplevel(self.root)
+        self.pop.geometry("480x460")
+        self.pop.config(bg = "grey")
+        self.pop.resizable(False,False)
+        self.b1['state'] = DISABLED
+        self.b2['state'] = DISABLED
+        self.b3['state'] = DISABLED
+
+        with open("team.dat","rb") as file:
+            l =[]
+       
+            t = pickle.load(file)
+            for i in range(len(t)):
+                if t[i][0] == self.comp.user:
+                    for j in range(1,len(t[i])):
+                        l.append(t[i][j][0].upper())
+
+            label1 = Label(self.pop,text = "YOUR PLAYER HAS BEEN DEFEATED CHOOSE ANOTHER",bg = 'grey',fg = 'black',font=("Arial", 15))
+            label1.place(x = 5,y = 20)
+
+            f = Frame(self.pop,height = 700,width = 700,bg = 'grey')
+            f.place(x = 10,y = 50)
+
+            def select_choice():
+                selected_name = player_choice.get(ANCHOR)
+                if selected_name != '':
+                    self.change_info(selected_name)
+                    self.f_players.delete(selected_name)
+               
+           
+       
+            player_choice = Listbox(f,width = 27, height = 13,fg = 'black',font = 'Arial',activestyle = 'none',bd = 2,relief = 'sunken')
+            player_choice.place(x = 110, y = 50)
+
+            print(self.playing)
+            print(l)
+
+            for i in self.playing:
+                if i in l:
+                    l.remove(i)
+
+            self.remaining = []
+
+            for item in l:
+                self.remaining.append(item)
+                player_choice.insert(END,item)
+
+            select_option1 = Button(f, text= 'select' ,bg = 'black',fg = 'white',padx = 76,pady = 15,command = lambda: select_choice(),borderwidth = 0,width = 4,relief = 'sunken')
+            select_option1.place(x =140,y =330)
+
+    def endturn(self):
+        if self.turn == 1:
+            self.b1['state'] = DISABLED
+            self.b2['state'] = DISABLED
+            self.b3['state'] = DISABLED
+            self.count_turn +=1
+
+            self.canvas.create_rectangle(473,190,739,300,fill ='black',outline = 'black')
+            self.canvas.create_text(506, 250, anchor='w',text="OPPONENTS TURN...", fill="white", font=('Arial 15 '))
+           
+        else:
+            self.b1['state'] = NORMAL
+            self.b2['state'] = NORMAL
+            self.b3['state'] = NORMAL
+
+            self.canvas.create_rectangle(473,190,739,300,fill ='black',outline = 'black')
+            self.canvas.create_text(536, 250, anchor='w',text="YOUR TURN...", fill="white", font=('Arial 15 '))
+
+       
+    def choose_player(self):
+        self.pop = Toplevel(self.root)
+        self.pop.geometry("480x460")
+        self.pop.config(bg = "grey")
+        self.pop.resizable(False,False)
+
+        with open("team.dat","rb") as file:
+            l =[]
+       
+            t = pickle.load(file)
+            for i in range(len(t)):
+                if t[i][0] == self.comp.user:
+                    for j in range(1,len(t[i])):
+                        l.append(t[i][j][0].upper())
+
+            """if len(l) == len(self.playing):
+            self.playing = []
+            round_lost = Label(self.pop,text = 'YOU HAVE LOST THE ROUND',bg = 'grey',fg = 'black',pady = 30,font=("Arial", 15))
+            round_lost2 =  Label(self.pop,text = 'SELECT NEW PLAYER',bg = 'grey',fg = 'black',pady = 50,font=("Arial", 15))
+            round_lost.pack()
+            round_lost2.pack()
+            self.send("wonround:0")
+
+            else:"""
+
+            label1 = Label(self.pop,text = "CHOOSE PLAYER",bg = 'grey',fg = 'black',font=("Arial", 15))
+            label1.place(x = 140,y = 20)
+
+            f = Frame(self.pop,height = 700,width = 700,bg = 'grey')
+            f.place(x = 10,y = 50)
+
+            def PLAYER():
+                self.player = player_choice.get(ANCHOR)
+                if self.player != '':
+                    self.move_buttons(self.player)
+           
+       
+            player_choice = Listbox(f,width = 27, height = 13,fg = 'black',font = 'Arial',activestyle = 'none',bd = 2,relief = 'sunken')
+            player_choice.place(x = 110, y = 50)
+
+            for item in l:
+                player_choice.insert(END,item)
+
+            select_option1 = Button(f, text= 'select' ,bg = 'black',fg = 'white',padx = 76,pady = 15,command = lambda: PLAYER(),borderwidth = 0,width = 4,relief = 'sunken')
+            select_option1.place(x =140,y =330)
+
+       
+    def lost(self):
+        self.pop = Toplevel(self.root)
+        self.pop.geometry("450x400")
+        self.pop.config(bg = "grey")
+        self.pop.resizable(False,False)
+
+        #self.send("wonround:0")
+
+        lab = Label(self.pop,text = "YOU LOST",bg = 'grey',fg = 'black',pady = 200,font=("Arial", 15))
+        lab.pack()
+
+        self.send('won:0')
+
+    def won(self):
+        self.pop = Toplevel(self.root)
+        self.pop.geometry("450x400")
+        self.pop.config(bg = "grey")
+        self.pop.resizable(False,False)
+
+        lab = Label(self.pop,text = "YOU  WON",bg = 'grey',fg = 'black',pady = 200,font=("Arial", 15))
+        lab.pack()
+
+
+
+
+
+if __name__ == '__main__':
+
+    root = Tk()
+    game = game_working(root)
+    root.mainloop()
