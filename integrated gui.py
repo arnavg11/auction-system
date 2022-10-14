@@ -288,7 +288,7 @@ Auction system:
         time.sleep(.2)
         self.label1 = Label(root,text = f"bid:{self.bid[0]}",bg = 'black',font=("Arial", 20),fg = "white")
         self.label1_ = Label(root,text = f"bid:{self.bid[1]}",bg = 'black',font=("Arial", 20),fg = "white")
-        self.ele.append(Label(self.root,text = "how much of your money do you want to invest in your base team?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
+        self.ele.append(Label(self.root,text = "how much of your money do you want to invest in auction?(out of 1000)",font = ("Helvetica",13),padx = 10,pady = 10,fg = "white",bg ="black" ))
         self.ele[-1].pack()
         self.ele.append(Entry(self.root,width = 60,background = "white"))
         self.ele[-1].pack()
@@ -303,8 +303,8 @@ Auction system:
         c = self.enterb.get()
         if c.isdigit() and 0<=int(c)<=1000:
             global moneyToTeam,money
-            moneyToTeam = int(c)
-            money-=moneyToTeam
+            moneyToTeam = 1000-int(c)
+            money= int(c)
             destruct(self.ele)
             self._init__(root)
         else:
