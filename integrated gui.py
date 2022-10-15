@@ -22,16 +22,19 @@ otherPlayer = None
 root = Tk()
 class start:
     def popup(self):
-        tkinter.messagebox.showinfo('info','''Team investment:
-    Out of 50 randomly selected players, the base team of the user is made by prioritizing higher value players and the strength of this priority is determined by how much money the user decides to put into forminghis baseteam.
-    
-Auction players:
-    These are high ranked players chosen so that users can battle for them witth the remainder of their money.
-Auction system:
-    Click on raise bid by 100 if you want to increase the bid for a player.
-    The player's name should turn green if you have the highest bid for that player and red if your opponent has the highest bid.
-    If you want to back out of the bid for a player, you can only do so if your opponent has the highest bid.
-    You cannot set a bid for a player if the total bid amount crosses the money you have left.
+        tkinter.messagebox.showinfo('info','''HOW THE GAME WORKS:
+
+This game is a two player game
+This game function similar to a card based game
+
+The game starts with an auction system where both players bid for two players given in the auction window. They can either raise bid or backout. Once backed out The opponent player receives the player.
+
+After players have bided. A randomiser alocats the rest of the team to each player with 6 in a team.
+Then the game starts.
+
+each team member has a set stamina(health) and 3 moves.
+
+each player chooses one team member.  For each turn a player selects a move and does damage to the other player's team member's health. when the team member has 0 stamina the player has to pick another team member from their team. When all the team members team has been defeated the player loses and opponent player wins and vice versa
     
     ''')
     def __init__(self,root):
