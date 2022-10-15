@@ -12,7 +12,7 @@ class game_working:
         #screen
         self.root = root
         self.root.geometry("1050x750")
-        self.root.title("FIFAPROLALU")
+        self.root.title("FIFAPRO")
 
         self.root.resizable(False,False)
 
@@ -73,7 +73,7 @@ class game_working:
         self.canvas.create_text(30, 50, anchor='w',text='OPPONENT HEALTH BAR AND PLAYER', fill="white", font=('Arial 12 '))
         opponent_bar = self.canvas.create_rectangle(30,10,416,35,fill ='red',outline = 'white')
 
-        #stamina_bar = self.canvas.create_rectangle(30,465,416,475,fill ='purple',outline = 'white')
+   
 
         with open("team.dat","rb") as file:
                 l =[]
@@ -188,7 +188,6 @@ class game_working:
                 for i in range(len(t)):
                     if t[i][0] == self.comp.user:
                         for j in range(1,len(t[i])):
-                            print("players buttons",player.lower(),t[i][j][0])
                             if player.lower() ==  t[i][j][0].lower():
                            
                                 self.opp_player = t[i][j][0].upper()
@@ -208,9 +207,6 @@ class game_working:
                                 self.b2.place(x = 230, y = 510)
                                 self.b3.place(x = 30, y = 575)
 
-                                """self.b1['state'] = DISABLED
-                                self.b2['state'] = DISABLED
-                                self.b3['state'] = DISABLED"""
 
                                 self.send(f'starting_player:{self.opp_player}')
 
@@ -226,7 +222,6 @@ class game_working:
                 for i in range(len(t)):
                     if t[i][0] == self.comp.user:
                         for j in range(1,len(t[i])):
-                            print("players card",x.lower(),t[i][j][0])
                             if t[i][j][0].lower() == x.lower():
                                 n = t[i][j][0].upper()
                                 st = str(t[i][j][5])
@@ -260,9 +255,7 @@ class game_working:
            
             x1 = value
             x1 = float(x1)
-            print()
-            print("value of x1:",x1)
-            print()
+ 
             self.turn=0
             self.endturn()
 
@@ -293,7 +286,7 @@ class game_working:
                 else:
                     self.change_player()
 
-            else:  
+            else: 
                 self.canvas.create_rectangle(x1,480.5,415,504,fill = 'black',outline = 'black')
        
         elif keyword == 'opp_name_change':
@@ -307,10 +300,6 @@ class game_working:
         elif keyword == 'starting_player':
             self.opp_player = value
             self.opp_player_test = self.opp_player
-           
-            """self.b1['state'] = NORMAL
-            self.b2['state'] = NORMAL
-            self.b3['state'] = NORMAL"""
 
             self.canvas.create_rectangle(30,10,416,35,fill ='red',outline = 'white')
             self.canvas.create_rectangle(420,5,1000,90,fill ='black',outline = 'black')
@@ -318,10 +307,6 @@ class game_working:
 
         elif keyword == 'won':
             self.won()
-
-        elif keyword == 'wonround':
-            self.playing = []
-            self.choose_player()
            
         elif keyword == 'your_score':
             self.selfscore = value
@@ -332,12 +317,6 @@ class game_working:
         self.turn = 1
         self.endturn()
        
-        print()
-        print("done:",damage)
-        print()
-
-        """damage_per = (damage/total_health)*100
-        damage_amo = (damage_per/100) * 386"""
        
         with open("team.dat","rb") as file:
             t = pickle.load(file)
@@ -352,11 +331,11 @@ class game_working:
                             print("damage sent",damage)
                             damage_amo = (damage/opp_total_health)*386
                             print("damage amount:",damage_amo)
+                            print()
            
-            self.x1 -= 30      
+            self.x1 -= 30     
             self.x1 -= damage_amo
-            print("check",self.x1)
-            print()
+
             self.x1 += 30
 
             if self.x1 < 0:
@@ -364,46 +343,14 @@ class game_working:
 
             if self.x1 <= 30:
                 self.send(f'damage:{self.x1}')
-                print("sending")
-                #canvas.create_rectangle(30,480,416,505,fill ='black',outline = 'white')
+
                 self.canvas.create_rectangle(30,10,416,35,fill ='black',outline = 'white')
                 self.x1 = 416
 
-            else:  
+            else: 
                 self.send(f'damage:{self.x1}')
-                print("sending")
-                #canvas.create_rectangle(x1,480.5,x2-1,504,fill = 'black',outline = 'black')
+
                 self.canvas.create_rectangle(self.x1,11,415,34,fill ='black',outline = 'black')
-
-        """if damage >= 100:
-            x__ = self.x_
-            self.x_ -= (70/100) * 386
-
-            if self.x_ <= 30:
-                self.canvas.create_rectangle(30,465,416,475,fill ='black',outline = 'white')
-
-            else:
-                self.canvas.create_rectangle(self.x_,466,x__ - 1,474,fill ='black',outline = 'black')
-
-        elif damage >= 65:
-            x__ = self.x_
-            self.x_ -= (40/100) * 386
-
-            if self.x_ <= 30:
-                self.canvas.create_rectangle(30,465,416,475,fill ='black',outline = 'white')
-
-            else:
-                self.canvas.create_rectangle(self.x_,466,x__ - 1,474,fill ='black',outline = 'black')
-
-        elif damage >= 40:
-            x__ = self.x_
-            self.x_ -= (20/100) * 386
-
-            if self.x_ <= 30:
-                self.canvas.create_rectangle(30,465,416,475,fill ='black',outline = 'white')
-
-            else:
-                self.canvas.create_rectangle(self.x_,466,x__ - 1,474,fill ='black',outline = 'black') """  
        
    
     def send(self,msg):
@@ -483,8 +430,6 @@ class game_working:
             player_choice = Listbox(f,width = 27, height = 13,fg = 'black',font = 'Arial',activestyle = 'none',bd = 2,relief = 'sunken')
             player_choice.place(x = 110, y = 50)
 
-            print(self.playing)
-            print(l)
 
             for i in self.playing:
                 if i in l:
@@ -533,15 +478,6 @@ class game_working:
                     for j in range(1,len(t[i])):
                         l.append(t[i][j][0].upper())
 
-            """if len(l) == len(self.playing):
-            self.playing = []
-            round_lost = Label(self.pop,text = 'YOU HAVE LOST THE ROUND',bg = 'grey',fg = 'black',pady = 30,font=("Arial", 15))
-            round_lost2 =  Label(self.pop,text = 'SELECT NEW PLAYER',bg = 'grey',fg = 'black',pady = 50,font=("Arial", 15))
-            round_lost.pack()
-            round_lost2.pack()
-            self.send("wonround:0")
-
-            else:"""
 
             label1 = Label(self.pop,text = "CHOOSE PLAYER",bg = 'grey',fg = 'black',font=("Arial", 15))
             label1.place(x = 140,y = 20)
@@ -570,8 +506,6 @@ class game_working:
         self.pop.geometry("450x400")
         self.pop.config(bg = "grey")
         self.pop.resizable(False,False)
-
-        #self.send("wonround:0")
 
         lab = Label(self.pop,text = "YOU LOST",bg = 'grey',fg = 'black',pady = 200,font=("Arial", 15))
         lab.pack()
